@@ -5,7 +5,7 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-light bg-light container">
       <div className="container-fluid">
         <a className="navbar-brand fw-bold" href="#">
-          LOGO
+          <img className="logo" src="/img/logo.png" alt="" />
         </a>
         <button
           className="navbar-toggler"
@@ -85,7 +85,7 @@ export default function Navbar() {
               </ul>
             </li>
           </ul>
-          <a href="#" className="btn bg-gradient ms-auto">
+          <a href="#" className="btn bg-gradient-hover ms-auto">
             Login/Signup
           </a>
         </div>
