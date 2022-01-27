@@ -16,11 +16,10 @@ a {
   box-sizing: border-box;
 }
 
+/* overriding bootstrap */
 .navbar {
   background: #fff !important;
 }
-
-/* overriding bootstrap */
 .navbar-expand-lg .navbar-nav .dropdown-menu {
   border-top: 3px solid #00a388 !important;
 }
@@ -43,6 +42,10 @@ a {
   color: white;
 }
 
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
 /* custom classes */
 .bg-gradient {
   background: linear-gradient(
@@ -60,4 +63,10 @@ a {
     #00a388 4.08%,
     rgba(0, 104, 163, 0.8) 92.51%
   ) !important;
+}
+
+.hero-img {
+  width: 100%;
+  height: 80vh;
+  object-fit: cover;
 }
