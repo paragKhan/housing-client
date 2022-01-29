@@ -13,11 +13,7 @@ export default function HousingIslandCard({ title }) {
       />
       <div className="card-img-overlay">
         <div className="d-flex justify-content-center align-items-center h-100">
-          <a
-            href="#"
-            className="btn text-light"
-            style={{ background: "#00A388" }}
-          >
+          <a href="#" className="btn text-light bg-green">
             {title}
           </a>
         </div>

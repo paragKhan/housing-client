@@ -7,13 +7,29 @@ body {
   font-family: "Rubik", sans-serif;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+a:focus,
+input:focus {
+  outline: none !important;
+}
+
+input:focus {
+  box-shadow: 0 0 0 2px #00a388 !important;
+}
+
+input[type="checkbox"] {
+  filter: hue-rotate(315deg);
+  height: 20px;
+  width: 20px;
+  box-shadow: none !important;
 }
 
 /* overriding bootstrap */
@@ -43,7 +59,7 @@ a {
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
-  background: #00a388;
+  background: #0068a3;
   color: white;
 }
 
@@ -52,9 +68,6 @@ a {
 }
 
 /* custom classes */
-.bg-white {
-  background: #fff;
-}
 
 .bg-gradient-hover:hover {
   background: linear-gradient(
@@ -93,6 +106,51 @@ a {
   height: 2.5em;
 }
 
-.border-primary {
-  border-color: #00a388 !important;
+/* colors */
+.color-green {
+  color: #00a388;
 }
+.color-blue {
+  color: #0068a3;
+}
+.color-dark {
+  color: #193441;
+}
+
+/* backgrounds */
+.bg-green {
+  background: #00a388;
+}
+.bg-blue {
+  background: #0068a3;
+}
+.bg-dark {
+  background: #193441 !important;
+}
+.bg-white {
+  background: #fff;
+}
+.bg-light {
+  background: #f0f0f0 !important;
+}
+.bg-overlay {
+  background: #000000a1;
+}
+
+/* border colors */
+.border-green {
+  border-color: #00a388;
+}
+.border-blue {
+  border-color: #0068a3;
+}
+.border-dark {
+  border-color: #193441;
+}
+
+/* shadows */
+.card-shadow {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* hovers */

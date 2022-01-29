@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 
 export default function Partners() {
   return (
-    <Marquee gradient={false}>
+    <Marquee style={{ background: "#193441" }} gradient={false}>
       <div className={styles.partners}>
         <img src="/img/partners/aa-builders.png" alt="" />
         <img src="/img/partners/adobe-homes.png" alt="" />

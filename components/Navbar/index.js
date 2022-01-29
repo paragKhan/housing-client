@@ -1,12 +1,23 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
 export default function Navbar() {
+  const router = useRouter();
+
+  const navActive = (path) => {
+    return router.pathname == path ? "active" : "";
+  };
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light container">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white container">
       <div className="container-fluid">
-        <a className="navbar-brand fw-bold" href="#">
-          <img className="logo" src="/img/logo.png" alt="" />
-        </a>
+        <Link href="/">
+          <a className="navbar-brand fw-bold">
+            <img className="logo" src="/img/logo.png" alt="" />
+          </a>
+        </Link>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -21,24 +32,28 @@ export default function Navbar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
-                Home
-              </a>
+              <Link href="/">
+                <a className={`nav-link ${navActive("/")}`}>Home</a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
-                Subdivisions
-              </a>
+              <Link href="/">
+                <a className={`nav-link ${navActive("/subdivisions")}`}>
+                  Subdivisions
+                </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
-                Housing Models
-              </a>
+              <Link href="/">
+                <a className={`nav-link ${navActive("/housing-models")}`}>
+                  Housing Models
+                </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
-                Contact
-              </a>
+              <Link href="/">
+                <a className={`nav-link ${navActive("/contact")}`}>Contact</a>
+              </Link>
             </li>
             <li className="nav-item dropdown">
               <a
@@ -85,9 +100,9 @@ export default function Navbar() {
               </ul>
             </li>
           </ul>
-          <a href="#" className="btn bg-gradient-hover ms-auto">
-            Login/Signup
-          </a>
+          <Link href="/signup">
+            <a className="btn bg-gradient-hover ms-auto">Login/Signup</a>
+          </Link>
         </div>
       </div>
     </nav>
