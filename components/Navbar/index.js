@@ -68,14 +68,14 @@ export default function Navbar() {
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Housing Act
-                  </a>
+                  <Link href="/download">
+                    <a className="dropdown-item">Housing Act</a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Housing Regulations
-                  </a>
+                  <Link href="/download">
+                    <a className="dropdown-item">Housing Regulations</a>
+                  </Link>
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">

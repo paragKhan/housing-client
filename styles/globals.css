@@ -149,7 +149,7 @@ input[type="checkbox"] {
   background: #f0f0f0 !important;
 }
 .bg-overlay {
-  background: #000000a1 !important;
+  background: rgba(0, 0, 0, 0.4) !important;
 }
 
 /* border colors */
@@ -161,6 +161,32 @@ input[type="checkbox"] {
 }
 .border-dark {
   border-color: #193441 !important;
+}
+
+/* buttons */
+.btn-green {
+  background: #00a388 !important;
+  color: white !important;
+}
+.btn-green:hover {
+  background: rgba(0, 163, 136, 0.8) !important;
+  color: white !important;
+}
+.btn-blue {
+  background: #0068a3 !important;
+  color: white !important;
+}
+.btn-blue:hover {
+  background: rgba(0, 104, 163, 0.8) !important;
+  color: white !important;
+}
+.btn-dark {
+  background: #193441 !important;
+  color: white !important;
+}
+.btn-dark:hover {
+  background: rgba(25, 52, 65, 0.8) !important;
+  color: white !important;
 }
 
 /* shadows */
