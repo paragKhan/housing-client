@@ -88,14 +88,19 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
-                    About Us
-                  </a>
+                  <Link href="/about">
+                    <a className="dropdown-item">About Us</a>
+                  </Link>
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
                     FAQs
                   </a>
+                </li>
+                <li>
+                  <Link href="/tnc">
+                    <a className="dropdown-item">Terms and Conditions</a>
+                  </Link>
                 </li>
               </ul>
             </li>

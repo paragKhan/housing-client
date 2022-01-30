@@ -30,25 +30,25 @@ export default function Footer() {
             <h4 className="color-dark">Quick Links</h4>
             <div className="d-flex justify-content-between">
               <div className="d-flex flex-column">
-                <Link className="color-dark" href="#">
+                <Link className="color-dark" href="/subdivisions">
                   <a>
                     <i className="fas fa-caret-right color-green me-2 fs-6" />
                     <span>Subdivisions</span>
                   </a>
                 </Link>
-                <Link className="color-dark" href="#">
+                <Link className="color-dark" href="/about">
                   <a>
                     <i className="fas fa-caret-right color-green me-2 fs-6" />
                     <span>About Us</span>
                   </a>
                 </Link>
-                <Link className="color-dark" href="#">
+                <Link className="color-dark" href="/faqs">
                   <a>
                     <i className="fas fa-caret-right color-green me-2 fs-6" />
                     <span>FAQs</span>
                   </a>
                 </Link>
-                <Link className="color-dark" href="#">
+                <Link className="color-dark" href="/contact">
                   <a>
                     <i className="fas fa-caret-right color-green me-2 fs-6" />
                     <span>Contact Us</span>
@@ -56,25 +56,25 @@ export default function Footer() {
                 </Link>
               </div>
               <div className="d-flex flex-column">
-                <Link className="color-dark" href="#">
+                <Link className="color-dark" href="/privacy">
                   <a>
                     <i className="fas fa-caret-right color-green me-2 fs-6" />
                     <span>Privacy Policy</span>
                   </a>
                 </Link>
-                <Link className="color-dark" href="#">
+                <Link className="color-dark" href="/tnc">
                   <a>
                     <i className="fas fa-caret-right color-green me-2 fs-6" />
                     <span>Terms & Conditions</span>
                   </a>
                 </Link>
-                <Link className="color-dark" href="#">
+                <Link className="color-dark" href="/housing-act">
                   <a>
                     <i className="fas fa-caret-right color-green me-2 fs-6" />
                     <span>Housing Act</span>
                   </a>
                 </Link>
-                <Link className="color-dark" href="#">
+                <Link className="color-dark" href="/housing-regulations">
                   <a>
                     <i className="fas fa-caret-right color-green me-2 fs-6" />
                     <span>Housing Regulations</span>

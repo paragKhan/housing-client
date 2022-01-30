@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Login() {
   return (
-    <div>
+    <>
       <Navbar />
       <div className="container-fluid bg-gradient py-5">
         <div className="row justify-content-center py-5 my-5 px-3">
@@ -59,6 +59,6 @@ export default function Login() {
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
 }
