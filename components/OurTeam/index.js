@@ -37,22 +37,36 @@ export default function OurTeam() {
           <p>Get in touch with our team</p>
         </div>
         <div className="row mt-5">
-          {data &&
-            data.map((item, i) => (
-              <div
-                key={i}
-                className="col col-lg-4 d-flex justify-content-center justify-content-lg-start mb-5 mb-lg-0"
-              >
-                <TeamCard
-                  name={item.name}
-                  designation={item.designation}
-                  photo={item.photo}
-                  linkedin={item.linkedin}
-                  emai={item.email}
-                  phone={item.phone}
-                />
-              </div>
-            ))}
+          <div className="col col-lg-4 d-flex justify-content-center justify-content-lg-start mb-5 mb-lg-0">
+            <TeamCard
+              name={data[0].name}
+              designation={data[0].designation}
+              photo={data[0].photo}
+              linkedin={data[0].linkedin}
+              emai={data[0].email}
+              phone={data[0].phone}
+            />
+          </div>
+          <div className="col col-lg-4 d-flex justify-content-center mb-5 mb-lg-0">
+            <TeamCard
+              name={data[1].name}
+              designation={data[1].designation}
+              photo={data[1].photo}
+              linkedin={data[1].linkedin}
+              emai={data[1].email}
+              phone={data[1].phone}
+            />
+          </div>
+          <div className="col col-lg-4 d-flex justify-content-center justify-content-lg-end mb-5 mb-lg-0">
+            <TeamCard
+              name={data[2].name}
+              designation={data[2].designation}
+              photo={data[2].photo}
+              linkedin={data[2].linkedin}
+              emai={data[2].email}
+              phone={data[2].phone}
+            />
+          </div>
         </div>
       </div>
     </div>
