@@ -7,20 +7,23 @@ export default function Welcome() {
         <div className="row">
           <div className="col-12 col-md-4 d-flex justify-content-center align-items-center mb-3 mb-md-0">
             <img
-              src="/img/person.png"
+              src="/img/team/person1.png"
               alt="..."
               className="w-100 rounded-circle border border-5 border-green"
               style={{ maxWidth: 300 }}
             />
           </div>
           <div className="col-12 col-md-8 d-flex justify-content-center align-items-center">
-            <div className="text-center text-md-start">
-              <p className="fs-5">
-                Welcome to the Ministry of the Environment and Housing&apos;s
-                home ownership application database. On this website you are
-                able to apply for home ownership, view our housing models and
-                floor plans and confirm the status of your application. We hope
-                that your experience here is a pleasant and fruitful one.
+            <div className="text-start">
+              <p className="fs-6 d-lg-none">
+                {
+                  "Welcome to the Ministry of Transport and Housing new and improved website. We are excited to introduce to you a more user friendly and efficient way of viewing homes and applying online. We have added our new user login interface where persons can create their profile and track their application. My team and I are committed to ensuring that high quality affordable homes are available for all Bahamians throughout The Bahamas."
+                }
+              </p>
+              <p className="fs-5 d-none d-lg-block">
+                {
+                  "Welcome to the Ministry of Transport and Housing new and improved website. We are excited to introduce to you a more user friendly and efficient way of viewing homes and applying online. We have added our new user login interface where persons can create their profile and track their application. My team and I are committed to ensuring that high quality affordable homes are available for all Bahamians throughout The Bahamas."
+                }
               </p>
               <strong className="fs-5">
                 Hon. JoBeth L. Coleby-Davis <br />

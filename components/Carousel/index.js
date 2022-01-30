@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 export default function Carousel() {
@@ -8,25 +9,36 @@ export default function Carousel() {
       data-bs-ride="carousel"
     >
       <div className="carousel-inner">
-        <div className="carousel-item active">
-          <img
-            src="https://natureconservancy-h.assetsadobe.com/is/image/content/dam/tnc/nature/en/photos/Zugpsitze_mountain.jpg?crop=0,176,3008,1654&wid=4000&hei=2200&scl=0.752"
-            className="hero-img"
+        <div className="carousel-item position-relative hero-img active">
+          <Image
+            src="https://images.pexels.com/photos/2240891/pexels-photo-2240891.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            layout="fill"
             alt="..."
+            objectFit="cover"
           />
         </div>
-        <div className="carousel-item">
-          <img
+        <div className="carousel-item position-relative hero-img">
+          <Image
             src="https://images.unsplash.com/photo-1546587348-d12660c30c50?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bmF0dXJhbHxlbnwwfHwwfHw%3D&w=1000&q=80"
-            className="hero-img"
+            layout="fill"
             alt="..."
+            objectFit="cover"
           />
         </div>
-        <div className="carousel-item">
-          <img
-            src="https://img.wallpapersafari.com/desktop/1920/1080/40/94/IEusoc.jpg"
-            className="hero-img"
+        <div className="carousel-item position-relative hero-img">
+          <Image
+            src="https://images.pexels.com/photos/2240891/pexels-photo-2240891.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            layout="fill"
             alt="..."
+            objectFit="cover"
+          />
+        </div>
+        <div className="carousel-item position-relative hero-img">
+          <Image
+            src="https://images.unsplash.com/photo-1546587348-d12660c30c50?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bmF0dXJhbHxlbnwwfHwwfHw%3D&w=1000&q=80"
+            layout="fill"
+            alt="..."
+            objectFit="cover"
           />
         </div>
       </div>

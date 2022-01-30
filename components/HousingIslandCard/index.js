@@ -3,7 +3,7 @@ import React from "react";
 export default function HousingIslandCard({ title }) {
   return (
     <div
-      className="card bg-dark text-white"
+      className="card bg-dark text-white card-shadow"
       style={{ width: 250, height: 250 }}
     >
       <img
@@ -11,7 +11,7 @@ export default function HousingIslandCard({ title }) {
         className="h-100"
         alt="..."
       />
-      <div className="card-img-overlay">
+      <div className="card-img-overlay bg-overlay">
         <div className="d-flex justify-content-center align-items-center h-100">
           <a href="#" className="btn text-light bg-green">
             {title}

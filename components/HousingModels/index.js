@@ -4,13 +4,13 @@ import React from "react";
 
 export default function HousingModels() {
   return (
-    <div className="bg-white p-4">
+    <div className="bg-white py-5">
       <div className="container">
         <div className="text-center">
           <h3>Housing Models</h3>
           <p>Check out some of our latest properties.</p>
         </div>
-        <div className="row">
+        <div className="row pt-3">
           <div className="col col-lg-4 d-flex justify-content-center justify-content-lg-start">
             <HousingModelCard />
           </div>
