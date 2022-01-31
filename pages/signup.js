@@ -34,10 +34,7 @@ export default function Signup() {
             </div>
           </div>
           <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center bg-light py-5">
-            <div
-              className="card card-shadow px-2 py-3"
-              style={{ width: 500, height: "fit-content" }}
-            >
+            <div className="card card-shadow px-2 py-3" style={{ width: 500 }}>
               <div className="card-body">
                 <h2 className="text-center color-dark fw-bold py-3">Sign Up</h2>
                 <form>

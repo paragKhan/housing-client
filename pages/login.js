@@ -9,10 +9,7 @@ export default function Login() {
       <Navbar />
       <div className="container-fluid bg-gradient py-5">
         <div className="row justify-content-center py-5 my-5 px-3">
-          <div
-            className="card card-shadow px-2 py-3"
-            style={{ width: 500, height: "content-height" }}
-          >
+          <div className="card card-shadow px-2 py-3" style={{ width: 500 }}>
             <div className="card-body py-5">
               <h2 className="text-center color-dark fw-bold mb-5">Login</h2>
               <form>

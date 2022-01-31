@@ -88,7 +88,7 @@ export default function Footer() {
             <form>
               <input
                 className="form-control bg-light border-0"
-                value="Your Email Address"
+                placeholder="Your Email Address"
               />
               <input
                 className="btn bg-green text-light mt-3"
