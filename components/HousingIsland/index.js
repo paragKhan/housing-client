@@ -11,16 +11,32 @@ export default function HousingIsland() {
         </div>
         <div className="row">
           <div className="col d-flex justify-content-center mb-3">
-            <HousingIslandCard title="Grand Bahama" />
+            <HousingIslandCard
+              url="/islands/1"
+              title="Grand Bahama"
+              img="/img/islands/Grand Bahama Island.jpg"
+            />
           </div>
           <div className="col d-flex justify-content-center mb-3">
-            <HousingIslandCard title="Abaco" />
+            <HousingIslandCard
+              url="/islands/2"
+              title="Abaco"
+              img="/img/islands/Abaco Island.jpg"
+            />
           </div>
           <div className="col d-flex justify-content-center mb-3">
-            <HousingIslandCard title="Eleuthera" />
+            <HousingIslandCard
+              url="/islands/3"
+              title="Eleuthera"
+              img="/img/islands/Eleuthera Island.jpg"
+            />
           </div>
           <div className="col d-flex justify-content-center">
-            <HousingIslandCard title="New Providence" />
+            <HousingIslandCard
+              url="/islands/4"
+              title="New Providence"
+              img="/img/islands/New province.jpg"
+            />
           </div>
         </div>
       </div>

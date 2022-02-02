@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="container py-5">
         <div className="row">
           <div className="col-12 col-md-6 col-lg-4">
-            <Image height={80} width={318} src="/img/logo.png" alt="" />
+            <Image height={80} width={318} src="/img/logo-footer.png" alt="" />
             <div className="my-2">
               <i className="fas fa-location-arrow color-dark me-2" />
               <small className="color-dark">
@@ -91,7 +91,7 @@ export default function Footer() {
                 placeholder="Your Email Address"
               />
               <input
-                className="btn bg-green text-light mt-3"
+                className="btn btn-green mt-3"
                 type="submit"
                 value="Subscribe"
               />

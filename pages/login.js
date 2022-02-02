@@ -1,9 +1,42 @@
+import { login } from "apis/auth";
 import Footer from "components/Footer";
 import Navbar from "components/Navbar";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import { useAuth } from "providers/AuthProvider";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import store from "store";
 
 export default function Login() {
+  const router = useRouter();
+  const [loginError, setLoginError] = useState(false);
+  const { setUser, setToken } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = async (data) => {
+    try {
+      const res = await login(data);
+      store.set("token", res.token);
+      store.set("user", {
+        id: res.user.id,
+        fname: res.user.fname,
+        email: res.user.email,
+        phone: res.user.phone,
+        photo: res.user.photo,
+      });
+      setUser(store.get("user"));
+      setToken(store.get("token"));
+      setLoginError(false);
+      router.replace("/");
+    } catch (error) {
+      setLoginError(true);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -12,17 +45,32 @@ export default function Login() {
           <div className="card card-shadow px-2 py-3" style={{ width: 500 }}>
             <div className="card-body py-5">
               <h2 className="text-center color-dark fw-bold mb-5">Login</h2>
-              <form>
+              {loginError && (
+                <p className="text-danger text-center">Login failed</p>
+              )}
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <input
-                  className="form-control mb-3 bg-light border-0 color-dark"
+                  {...register("email", { required: true })}
+                  className={`form-control ${
+                    errors.email ? "invalid" : ""
+                  } mb-3 bg-light border-0 color-dark`}
                   placeholder="Email address"
-                  type="text"
+                  type="email"
                 />
+                {errors.email && (
+                  <p className="text-danger">Email is required</p>
+                )}
                 <input
-                  className="form-control mb-3 bg-light border-0 color-dark"
+                  {...register("password", { required: true })}
+                  className={`form-control ${
+                    errors.password ? "invalid" : ""
+                  } mb-3 bg-light border-0 color-dark`}
                   placeholder="Password"
-                  type="text"
+                  type="password"
                 />
+                {errors.password && (
+                  <p className="text-danger">Password is required</p>
+                )}
                 <div className="d-flex mb-3">
                   <input className="me-3" type="checkbox" />
                   <small className="color-green">Remember me</small>

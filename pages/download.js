@@ -14,6 +14,7 @@ export default function Download() {
           style={{
             background:
               "url('https://i.pinimg.com/originals/66/d9/f5/66d9f5afdc5337d3f9eac362b970c426.jpg')",
+            backgroundSize: "cover",
           }}
         >
           <h3 className="bg-overlay py-5 text-light text-center mb-0">
@@ -64,7 +65,7 @@ export default function Download() {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-lg-4 mt-3 mt-lg-0">
+            <div className="col-lg-4 d-none d-lg-block">
               <div className="row">
                 <div className="col mt-3 mt-lg-0">
                   <HousingModelCard />

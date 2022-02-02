@@ -1,9 +1,28 @@
+import { logout } from "apis/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import { useAuth } from "providers/AuthProvider";
+import React, { useEffect } from "react";
+import store from "store";
 
 export default function Navbar() {
   const router = useRouter();
+  const { user, setUser, setToken } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {}
+    store.remove("token");
+    store.remove("user");
+    setUser(null);
+    setToken(null);
+    router.replace("/");
+  };
+
+  useEffect(() => {
+    setUser(store.get("user"));
+  }, []);
 
   const navActive = (path) => {
     return router.pathname == path ? "active" : "";
@@ -30,7 +49,7 @@ export default function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav ms-auto mr-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link href="/">
                 <a className={`nav-link ${navActive("/")}`}>Home</a>
@@ -93,9 +112,9 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
-                    FAQs
-                  </a>
+                  <Link href="/faq">
+                    <a className="dropdown-item">FAQs</a>
+                  </Link>
                 </li>
                 <li>
                   <Link href="/tnc">
@@ -105,9 +124,43 @@ export default function Navbar() {
               </ul>
             </li>
           </ul>
-          <Link href="/signup">
-            <a className="btn bg-gradient-hover ms-auto">Login/Signup</a>
-          </Link>
+          <ul className="navbar-nav">
+            {user && (
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i className="fas fa-user" />
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <Link href="/profile">
+                      <a className="dropdown-item">Profile</a>
+                    </Link>
+                  </li>
+                  <li>
+                    <a
+                      onClick={handleLogout}
+                      className="dropdown-item cursor-pointer"
+                    >
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            )}
+          </ul>
+
+          {!user && (
+            <Link href="/login">
+              <a className="btn bg-gradient-hover ms-auto">Login/Signup</a>
+            </Link>
+          )}
         </div>
       </div>
     </nav>

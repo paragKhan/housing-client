@@ -1,21 +1,71 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import { signup } from "apis/auth";
 import Footer from "components/Footer";
 import Navbar from "components/Navbar";
+import { errorify } from "helpers";
 import Link from "next/link";
+import Router from "next/router";
 import React from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import * as yup from "yup";
 
 export default function Signup() {
+  //confirm password validation
+  const schema = yup.object().shape({
+    fname: yup.string().required("First name is required"),
+    lname: yup.string().required("Last name is required"),
+    email: yup
+      .string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    phone: yup
+      .string()
+      .required("Phone number is required")
+      .matches(/^\d+$/, "Not a valid phone number"),
+    password: yup.string().required("Password is required"),
+    cpassword: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "Passwords doesn't match")
+      .required("Confirm Password is required"),
+    terms: yup.bool().oneOf([true], "Please Select Term and Conditions"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const onSubmit = async (data) => {
+    try {
+      await signup(data);
+      toast.success(
+        "Signup Successful. Please check your email for verification"
+      );
+      reset();
+      Router.push("/login");
+    } catch (err) {
+      errorify(err);
+    }
+  };
   return (
     <>
       <Navbar />
       <div className="container-fluid">
         <div className="row">
           <div className="d-none d-lg-block col-lg-6 p-0">
-            <div className="card h-100 w-100 text-white">
-              <img
-                src="https://i.pinimg.com/originals/66/d9/f5/66d9f5afdc5337d3f9eac362b970c426.jpg"
-                className="h-100 img-fluid"
-                alt="..."
-              />
+            <div
+              className="card h-100 w-100 text-white"
+              style={{
+                backgroundImage:
+                  "url('https://i.pinimg.com/originals/66/d9/f5/66d9f5afdc5337d3f9eac362b970c426.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
               <div className="card-img-overlay d-flex align-items-center bg-overlay p-0">
                 <div className="p-5 m-5">
                   <h3>WELCOME</h3>
@@ -37,45 +87,104 @@ export default function Signup() {
             <div className="card card-shadow px-2 py-3" style={{ width: 500 }}>
               <div className="card-body">
                 <h2 className="text-center color-dark fw-bold py-3">Sign Up</h2>
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <input
-                    className="form-control mb-3 bg-light border-0 color-dark"
+                    {...register("fname")}
+                    className={`form-control ${
+                      errors.fname ? "invalid" : ""
+                    } mb-3 bg-light border-0 color-dark`}
                     placeholder="First Name"
                     type="text"
                   />
+                  {errors.fname && (
+                    <p className="small text-danger">{errors.fname.message}</p>
+                  )}
                   <input
-                    className="form-control mb-3 bg-light border-0 color-dark"
+                    {...register("lname")}
+                    className={`form-control ${
+                      errors.lname ? "invalid" : ""
+                    } mb-3 bg-light border-0 color-dark`}
                     placeholder="Last Name"
                     type="text"
                   />
+                  {errors.lname && (
+                    <p className="small text-danger">{errors.lname.message}</p>
+                  )}
                   <input
-                    className="form-control mb-3 bg-light border-0 color-dark"
+                    {...register("email")}
+                    className={`form-control ${
+                      errors.email ? "invalid" : ""
+                    } mb-3 bg-light border-0 color-dark`}
                     placeholder="Email Address"
-                    type="text"
+                    type="email"
                   />
+                  {errors.email && (
+                    <p className="small text-danger">{errors.email.message}</p>
+                  )}
                   <input
-                    className="form-control mb-3 bg-light border-0 color-dark"
+                    {...register("phone")}
+                    className={`form-control ${
+                      errors.phone ? "invalid" : ""
+                    } mb-3 bg-light border-0 color-dark`}
                     placeholder="Phone Number"
                     type="text"
                   />
+                  {errors.phone && (
+                    <p className="small text-danger">{errors.phone.message}</p>
+                  )}
                   <input
-                    className="form-control mb-3 bg-light border-0 color-dark"
+                    {...register("password", { required: true })}
+                    className={`form-control ${
+                      errors.password ? "invalid" : ""
+                    } mb-3 bg-light border-0 color-dark`}
                     placeholder="Password"
-                    type="text"
+                    type="password"
                   />
+                  {errors.password && (
+                    <p className="small text-danger">
+                      {errors.password.message}
+                    </p>
+                  )}
                   <input
-                    className="form-control mb-3 bg-light border-0 color-dark"
+                    {...register("cpassword", { required: true })}
+                    className={`form-control ${
+                      errors.cpassword ? "invalid" : ""
+                    } mb-3 bg-light border-0 color-dark`}
                     placeholder="Confirm Password"
-                    type="text"
+                    type="password"
                   />
-                  <div className="d-flex mb-3">
-                    <input className="me-3" type="checkbox" />
-                    <small>Accept Terms and Conditions</small>
+                  {errors.cpassword && (
+                    <p className="small text-danger">
+                      {errors.cpassword.message}
+                    </p>
+                  )}
+                  <div className="mb-3">
+                    <div className="d-flex">
+                      <input
+                        {...register("terms", { required: true })}
+                        className={`me-3 ${errors.terms ? "invalid" : ""}`}
+                        type="checkbox"
+                      />
+                      <p>
+                        <span>Accept </span>
+                        <Link href="tnc">
+                          <a>
+                            <u>Terms and Conditions</u>
+                          </a>
+                        </Link>
+                      </p>
+                    </div>
+
+                    {errors.terms && (
+                      <p className="small text-danger">
+                        {errors.terms.message}
+                      </p>
+                    )}
                   </div>
 
                   <div className="text-center">
                     <input
-                      className="btn bg-green text-white px-4"
+                      className="btn bg-green bg-danger text-white px-4"
                       type="submit"
                       value="Submit"
                     />

@@ -11,7 +11,7 @@ export default function Carousel() {
       <div className="carousel-inner">
         <div className="carousel-item position-relative hero-img active">
           <Image
-            src="https://images.pexels.com/photos/2240891/pexels-photo-2240891.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            src="/img/slides/slide-1.jpg"
             layout="fill"
             alt="..."
             objectFit="cover"

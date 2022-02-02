@@ -9,8 +9,7 @@ export default function Welcome() {
             <img
               src="/img/team/person1.png"
               alt="..."
-              className="w-100 rounded-circle border border-5 border-green"
-              style={{ maxWidth: 300 }}
+              className="welcome-img rounded-circle border border-5 border-green"
             />
           </div>
           <div className="col-12 col-md-8 d-flex justify-content-center align-items-center">

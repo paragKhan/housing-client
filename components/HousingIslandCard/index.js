@@ -1,21 +1,18 @@
+import Link from "next/link";
 import React from "react";
 
-export default function HousingIslandCard({ title }) {
+export default function HousingIslandCard({ title, url, img }) {
   return (
     <div
-      className="card bg-dark text-white card-shadow"
+      className="card bg-dark text-white card-shadow border-0"
       style={{ width: 250, height: 250 }}
     >
-      <img
-        src="https://i.pinimg.com/originals/66/d9/f5/66d9f5afdc5337d3f9eac362b970c426.jpg"
-        className="h-100"
-        alt="..."
-      />
+      <img src={img} className="h-100" alt="..." />
       <div className="card-img-overlay bg-overlay">
         <div className="d-flex justify-content-center align-items-center h-100">
-          <a href="#" className="btn text-light bg-green">
-            {title}
-          </a>
+          <Link href={url}>
+            <a className="btn btn-green">{title}</a>
+          </Link>
         </div>
       </div>
     </div>

@@ -10,9 +10,7 @@ export default function Contact() {
       <div className="bg-light py-5">
         <div className="container">
           <div className="row">
-            <h4 className="text-center text-dark">
-              Visit our Agency Locations or <br /> Contact us Today
-            </h4>
+            <h4 className="text-center text-dark">Visit Our Office Location</h4>
           </div>
           <div className="row mt-5">
             <div className="col-12 col-lg-4 mb-5">

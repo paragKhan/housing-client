@@ -31,6 +31,7 @@ export default function About() {
             </div>
           </div>
           <div className="col-12 col-lg-8 p-4">
+            <h3 className="text-dark">About Us</h3>
             <p className="small">
               The Ministry of Housing was established by an act of Parliament
               which commenced on January 9th, 1968. The Housing Act replaced the
