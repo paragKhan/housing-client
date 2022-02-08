@@ -6,7 +6,7 @@ export default function OurTeam() {
     {
       name: "Ms. Antoinette Thompson",
       designation: "Permanent Secretary",
-      photo: "/img/team/person1.png",
+      photo: "/img/team/person1.jpg",
       linkedin: "",
       email: "",
       phone: "",
@@ -22,7 +22,7 @@ export default function OurTeam() {
     {
       name: "Mr. Thomas Ferguson",
       designation: "Acting Director of Housing",
-      photo: "/img/team/person1.png",
+      photo: "/img/team/person1.jpg",
       linkedin: "",
       email: "",
       phone: "",

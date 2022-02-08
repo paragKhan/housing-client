@@ -1,10 +1,24 @@
+import axios from "apis/axios";
 import Footer from "components/Footer";
 import HousingModelCard from "components/HousingModelCard";
 import LearnMore from "components/LearnMore";
 import Navbar from "components/Navbar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function ApplicationStatus() {
+  const [status, setStatus] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("/get-application-status")
+      .then((res) => {
+        setStatus(res.data.status);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -60,46 +74,90 @@ export default function ApplicationStatus() {
                   <h5 className="color-dark text-center mb-5">
                     Application Status
                   </h5>
-                  <div className="d-flex align-items-center my-3">
-                    <span className="badge-number-rounded bg-green text-light fw-bold">
-                      1
-                    </span>
-                    <span className="ms-3 color-green fw-bold">
-                      Application Submitted
-                    </span>
-                  </div>
-                  <div className="d-flex align-items-center my-3">
-                    <span className="badge-number-rounded bg-green text-light fw-bold">
-                      2
-                    </span>
-                    <span className="ms-3 color-green fw-bold">
-                      Application Under Review
-                    </span>
-                  </div>
-                  <div className="d-flex align-items-center my-3">
-                    <span className="badge-number-rounded bg-green text-light fw-bold">
-                      3
-                    </span>
-                    <span className="ms-3 color-green fw-bold">
-                      Application Approved
-                    </span>
-                  </div>
-                  <div className="d-flex align-items-center my-3">
-                    <span className="badge-number-rounded bg-danger text-light fw-bold">
-                      3
-                    </span>
-                    <span className="ms-3 text-danger fw-bold">
-                      Application Declined
-                    </span>
-                  </div>
-                  <div className="d-flex align-items-center my-3">
-                    <span className="badge-number-rounded bg-warning text-light fw-bold">
-                      3
-                    </span>
-                    <span className="ms-3 text-warning fw-bold">
-                      Application Resubmission
-                    </span>
-                  </div>
+                  {status == "undefined" ? (
+                    <>
+                      <p className="lead text-center text-muted">
+                        You haven&apos; submitted an application yet!
+                      </p>
+                    </>
+                  ) : status == "submitted" ? (
+                    <div className="d-flex align-items-center my-3">
+                      <span className="badge-number-rounded bg-green text-light fw-bold">
+                        1
+                      </span>
+                      <span className="ms-3 color-green fw-bold">
+                        Application Submitted
+                      </span>
+                    </div>
+                  ) : status == "reviewing" ? (
+                    <>
+                      <div className="d-flex align-items-center my-3">
+                        <span className="badge-number-rounded bg-green text-light fw-bold">
+                          1
+                        </span>
+                        <span className="ms-3 color-green fw-bold">
+                          Application Submitted
+                        </span>
+                      </div>
+                      <div className="d-flex align-items-center my-3">
+                        <span className="badge-number-rounded bg-green text-light fw-bold">
+                          2
+                        </span>
+                        <span className="ms-3 color-green fw-bold">
+                          Application Under Review
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="d-flex align-items-center my-3">
+                        <span className="badge-number-rounded bg-green text-light fw-bold">
+                          1
+                        </span>
+                        <span className="ms-3 color-green fw-bold">
+                          Application Submitted
+                        </span>
+                      </div>
+                      <div className="d-flex align-items-center my-3">
+                        <span className="badge-number-rounded bg-green text-light fw-bold">
+                          2
+                        </span>
+                        <span className="ms-3 color-green fw-bold">
+                          Application Under Review
+                        </span>
+                      </div>
+                      {status == "approved" && (
+                        <div className="d-flex align-items-center my-3">
+                          <span className="badge-number-rounded bg-green text-light fw-bold">
+                            3
+                          </span>
+                          <span className="ms-3 color-green fw-bold">
+                            Application Approved
+                          </span>
+                        </div>
+                      )}
+                      {status == "resubmit" && (
+                        <div className="d-flex align-items-center my-3">
+                          <span className="badge-number-rounded bg-warning text-light fw-bold">
+                            3
+                          </span>
+                          <span className="ms-3 text-warning fw-bold">
+                            Application Resubmission
+                          </span>
+                        </div>
+                      )}
+                      {status == "declined" && (
+                        <div className="d-flex align-items-center my-3">
+                          <span className="badge-number-rounded bg-danger text-light fw-bold">
+                            3
+                          </span>
+                          <span className="ms-3 text-danger fw-bold">
+                            Application Declined
+                          </span>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
             </div>

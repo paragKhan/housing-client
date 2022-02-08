@@ -56,14 +56,14 @@ export default function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link href="/">
+              <Link href="/subdivisions">
                 <a className={`nav-link ${navActive("/subdivisions")}`}>
                   Subdivisions
                 </a>
               </Link>
             </li>
             <li className="nav-item">
-              <Link href="/">
+              <Link href="/housing-models">
                 <a className={`nav-link ${navActive("/housing-models")}`}>
                   Housing Models
                 </a>
@@ -103,7 +103,7 @@ export default function Navbar() {
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
-                    Rent Of own
+                    Rent To Own
                   </a>
                 </li>
                 <li>
@@ -141,6 +141,11 @@ export default function Navbar() {
                   <li>
                     <Link href="/profile">
                       <a className="dropdown-item">Profile</a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/application">
+                      <a className="dropdown-item">Application</a>
                     </Link>
                   </li>
                   <li>

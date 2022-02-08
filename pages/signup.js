@@ -23,7 +23,7 @@ export default function Signup() {
     phone: yup
       .string()
       .required("Phone number is required")
-      .matches(/^\d+$/, "Not a valid phone number"),
+      .matches(/^\d+$/, "Found invalid characters"),
     password: yup.string().required("Password is required"),
     cpassword: yup
       .string()
@@ -60,8 +60,7 @@ export default function Signup() {
             <div
               className="card h-100 w-100 text-white"
               style={{
-                backgroundImage:
-                  "url('https://i.pinimg.com/originals/66/d9/f5/66d9f5afdc5337d3f9eac362b970c426.jpg')",
+                backgroundImage: "url('/img/slides/slide-2.jpg')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -70,10 +69,10 @@ export default function Signup() {
                 <div className="p-5 m-5">
                   <h3>WELCOME</h3>
                   <p>
-                    Welcome to the ministry of the Environment and Housing’s
-                    home ownership application database. On this website you are
-                    able to apply for home ownership, view our housing models
-                    and floor plans and confirm the status of your application.{" "}
+                    Welcome to the ministry of the Transport and Housing’s home
+                    ownership application database. On this website you are able
+                    to apply for home ownership, view our housing models and
+                    floor plans and confirm the status of your application.{" "}
                   </p>
                   <p>
                     We hope that your experience here is a pleasent and fruitful

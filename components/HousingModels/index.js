@@ -4,20 +4,20 @@ import React from "react";
 
 export default function HousingModels() {
   return (
-    <div className="bg-white py-5">
+    <div className="py-5" style={{ background: "#d7f5ed" }}>
       <div className="container">
         <div className="text-center">
           <h3>Housing Models</h3>
           <p>Check out some of our latest properties.</p>
         </div>
-        <div className="row pt-3">
-          <div className="col col-lg-4 d-flex justify-content-center justify-content-lg-start">
+        <div className="row  pt-3">
+          <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
             <HousingModelCard />
           </div>
-          <div className="col col-lg-4 d-flex justify-content-center my-3 my-lg-0">
+          <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
             <HousingModelCard />
           </div>
-          <div className="col col-lg-4 d-flex justify-content-center justify-content-lg-end">
+          <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
             <HousingModelCard />
           </div>
         </div>

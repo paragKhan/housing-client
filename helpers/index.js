@@ -1,4 +1,4 @@
-import { router } from "next/router";
+import router from "next/router";
 import { toast } from "react-toastify";
 import store from "store";
 

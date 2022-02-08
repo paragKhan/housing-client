@@ -19,7 +19,7 @@ export default function Carousel() {
         </div>
         <div className="carousel-item position-relative hero-img">
           <Image
-            src="https://images.unsplash.com/photo-1546587348-d12660c30c50?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bmF0dXJhbHxlbnwwfHwwfHw%3D&w=1000&q=80"
+            src="/img/slides/slide-2.jpg"
             layout="fill"
             alt="..."
             objectFit="cover"
@@ -27,7 +27,7 @@ export default function Carousel() {
         </div>
         <div className="carousel-item position-relative hero-img">
           <Image
-            src="https://images.pexels.com/photos/2240891/pexels-photo-2240891.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            src="/img/slides/slide-3.jpg"
             layout="fill"
             alt="..."
             objectFit="cover"
@@ -35,7 +35,7 @@ export default function Carousel() {
         </div>
         <div className="carousel-item position-relative hero-img">
           <Image
-            src="https://images.unsplash.com/photo-1546587348-d12660c30c50?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bmF0dXJhbHxlbnwwfHwwfHw%3D&w=1000&q=80"
+            src="/img/slides/slide-4.jpg"
             layout="fill"
             alt="..."
             objectFit="cover"

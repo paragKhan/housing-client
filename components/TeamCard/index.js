@@ -12,7 +12,7 @@ export default function TeamCard({
 }) {
   return (
     <div className={styles.card}>
-      <img className={styles.img} src={photo} alt="" />
+      <img className={`${styles.img} card-shadow`} src={photo} alt="" />
       <div className={styles.content}>
         <h6>{name}</h6>
         <p>{designation}</p>

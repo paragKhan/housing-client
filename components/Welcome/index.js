@@ -7,7 +7,7 @@ export default function Welcome() {
         <div className="row">
           <div className="col-12 col-md-4 d-flex justify-content-center align-items-center mb-3 mb-md-0">
             <img
-              src="/img/team/person1.png"
+              src="/img/team/person1.jpg"
               alt="..."
               className="welcome-img rounded-circle border border-5 border-green"
             />

@@ -2,6 +2,7 @@ import Head from "next/head";
 import Script from "next/script";
 import AuthProvider from "providers/AuthProvider";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
