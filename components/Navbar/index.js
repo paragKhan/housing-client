@@ -173,10 +173,7 @@ export default function Navbar() {
                   </ul>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item d-flex align-items-center"
-                    href="#"
-                  >
+                  <a className="dropdown-item d-flex align-items-center">
                     <i className="fas fa-caret-left fs-5 me-2"></i>DOH
                     Department
                   </a>
