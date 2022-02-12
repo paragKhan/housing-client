@@ -183,17 +183,67 @@ export default function Navbar() {
                   <ul className="submenu dropdown-menu">
                     <li>
                       <a className="dropdown-item" href="#">
+                        Head of Department
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Human Resources
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
                         Customer Service
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="#">
-                        Complaints Unit
+                        Complains
                       </a>
                     </li>
                     <li>
                       <a className="dropdown-item" href="#">
-                        Planning Office
+                        Undertaking to Ensure
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Accounts Section
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Legal
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Registry Section
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Public Rentals
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Collections & Resettlement
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Land Management
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Infrastructural Development
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        House Construction
                       </a>
                     </li>
                     {/* <li>
