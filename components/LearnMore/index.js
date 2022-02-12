@@ -9,7 +9,7 @@ export default function LearnMore() {
       </div>
       <div className="card-body">
         <p>
-          Please learn more about our housing act and housing regulations, which
+          Please learn more about our Housing Act and Housing Regulations, which
           has been given below.
         </p>
         <Link href="/download">

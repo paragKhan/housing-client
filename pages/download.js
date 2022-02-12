@@ -1,5 +1,5 @@
 import Footer from "components/Footer";
-import HousingModelCard from "components/HousingModelCard";
+import HousingModelCards from "components/HousingModelCards";
 import Navbar from "components/Navbar";
 import Link from "next/link";
 import React from "react";
@@ -67,15 +67,7 @@ export default function Download() {
             </div>
             <div className="col-lg-4 d-none d-lg-block">
               <div className="row">
-                <div className="col mt-3 mt-lg-0">
-                  <HousingModelCard />
-                </div>
-                <div className="col mt-3 mt-lg-3">
-                  <HousingModelCard />
-                </div>
-                <div className="col mt-3 mt-lg-3">
-                  <HousingModelCard />
-                </div>
+                <HousingModelCards count={2} />
               </div>
             </div>
           </div>

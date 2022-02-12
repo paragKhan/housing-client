@@ -1,6 +1,5 @@
 /* eslint-disable react/display-name */
 
-import { verifyToken } from "apis/auth";
 import router from "next/router";
 import { useEffect, useState } from "react";
 import store from "store";
@@ -16,15 +15,7 @@ const withAuth = (WrappedComponent) => {
         router.replace("/");
       }
 
-      verifyToken()
-        .then((response) => {
-          setVerified(true);
-        })
-        .catch((error) => {
-          store.remove("user");
-          store.remove("token");
-          router.replace("/");
-        });
+      setVerified(true);
     }, []);
 
     return <>{verified && <WrappedComponent {...props} />}</>;

@@ -1,13 +1,12 @@
 import axios from "apis/axios";
 import Footer from "components/Footer";
 import Navbar from "components/Navbar";
-import Pagination from "components/Paginations";
 import SubdivisionCard from "components/SubdivisionCard";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 export default function Subdivisions() {
-  const [subdivisions, setSubdivisions] = React.useState([]);
+  const [subdivisions, setSubdivisions] = useState([]);
   const [data, setData] = useState(null);
 
   const router = useRouter();
@@ -103,8 +102,6 @@ export default function Subdivisions() {
               </div>
             ))}
           </div>
-
-          <Pagination />
         </div>
       </div>
       <Footer />

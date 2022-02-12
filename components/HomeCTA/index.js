@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function HomeCTA() {
@@ -10,12 +11,12 @@ export default function HomeCTA() {
         </h5>
 
         <div className="mt-5 text-center">
-          <a href="#" className="btn btn-light px-4 me-3">
-            Sign Up
-          </a>
-          <a href="#" className="btn btn-outline-light px-4">
-            Browse
-          </a>
+          <Link href="/signup">
+            <a className="btn btn-light px-4 me-3">Sign Up</a>
+          </Link>
+          <Link target="_blank" href="/subdivisions">
+            <a className="btn btn-outline-light px-4">Browse</a>
+          </Link>
         </div>
       </div>
     </div>

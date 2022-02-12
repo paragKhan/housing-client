@@ -6,25 +6,22 @@ export default function OurTeam() {
     {
       name: "Ms. Antoinette Thompson",
       designation: "Permanent Secretary",
-      photo: "/img/team/person1.jpg",
-      linkedin: "",
-      email: "",
+      photo: "/img/team/common.png",
+      email: "antoinettethompson@bahamas.gov.bs",
       phone: "",
     },
     {
       name: "Gaynell Rolle MBA, AMA, CRMA, CTEP, CIA",
       designation: "Under Secretary",
       photo: "/img/team/person2.png",
-      linkedin: "",
-      email: "",
+      email: "gaynellrolle@bahamas.gov.bs",
       phone: "",
     },
     {
       name: "Mr. Thomas Ferguson",
       designation: "Acting Director of Housing",
-      photo: "/img/team/person1.jpg",
-      linkedin: "",
-      email: "",
+      photo: "/img/team/common.png",
+      email: "orallafleur@bahamas.gov.bs",
       phone: "",
     },
   ];
@@ -42,8 +39,7 @@ export default function OurTeam() {
               name={data[0].name}
               designation={data[0].designation}
               photo={data[0].photo}
-              linkedin={data[0].linkedin}
-              emai={data[0].email}
+              email={data[0].email}
               phone={data[0].phone}
             />
           </div>
@@ -52,8 +48,7 @@ export default function OurTeam() {
               name={data[1].name}
               designation={data[1].designation}
               photo={data[1].photo}
-              linkedin={data[1].linkedin}
-              emai={data[1].email}
+              email={data[1].email}
               phone={data[1].phone}
             />
           </div>
@@ -62,8 +57,7 @@ export default function OurTeam() {
               name={data[2].name}
               designation={data[2].designation}
               photo={data[2].photo}
-              linkedin={data[2].linkedin}
-              emai={data[2].email}
+              email={data[2].email}
               phone={data[2].phone}
             />
           </div>

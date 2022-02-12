@@ -1,10 +1,10 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["images.pexels.com", "images.unsplash.com", "localhost"],
+    domains: ["localhost", "testteam.xyz", "images.pexels.com"],
   },
   env: {
-    API_URL: "http://localhost:8000/api/user/",
-    IMAGE_URL: "http://localhost:8000/uploads/",
+    API_URL: "https://testteam.xyz/api/user/",
+    IMAGE_URL: "https://testteam.xyz/uploads/",
   },
 };

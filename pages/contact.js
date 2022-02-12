@@ -1,9 +1,31 @@
+import axios from "apis/axios";
 import Footer from "components/Footer";
 import Map from "components/Map";
 import Navbar from "components/Navbar";
 import React from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function Contact() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const onSubmit = (data) => {
+    axios
+      .post("/messages", data)
+      .then((res) => {
+        toast.success("Message sent successfully!");
+        reset();
+      })
+      .catch((err) => {
+        toast.error("Message Not Sent!");
+      });
+  };
+
   return (
     <>
       <Navbar />
@@ -43,11 +65,7 @@ export default function Contact() {
                   <br />
                   <span className="color-green fw-bold">Email</span>
                   <br />
-                  <span>
-                    info@dohbahamas.com
-                    <br />
-                    info@dohbahamas.com
-                  </span>
+                  <span>info@dohbahamas.com</span>
                 </div>
               </div>
             </div>
@@ -79,24 +97,36 @@ export default function Contact() {
               <h2 className="text-center color-dark fw-bold mb-5">
                 Leave a message
               </h2>
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <input
-                  className="form-control mb-3 bg-light border-0 color-dark"
+                  {...register("name", { required: true })}
+                  className="form-control mt-3 bg-light border-0 color-dark"
                   placeholder="Name"
                   type="text"
                 />
+                {errors.name && (
+                  <span className="text-danger">Name is required</span>
+                )}
                 <input
-                  className="form-control mb-3 bg-light border-0 color-dark"
+                  {...register("email", { required: true })}
+                  className="form-control mt-3 bg-light border-0 color-dark"
                   placeholder="Email Address"
-                  type="text"
+                  type="email"
                 />
+                {errors.email && (
+                  <span className="text-danger">Email is required</span>
+                )}
                 <textarea
-                  className="form-control mb-3 bg-light border-0 color-dark"
+                  {...register("details", { required: true })}
+                  className="form-control mt-3 bg-light border-0 color-dark"
                   placeholder="Start writing..."
                   rows={5}
                 />
+                {errors.details && (
+                  <span className="text-danger">details is required</span>
+                )}
 
-                <div className="text-center">
+                <div className="text-center mt-3">
                   <input
                     className="btn btn-green text-white px-4"
                     type="submit"

@@ -56,12 +56,6 @@ export default function Footer() {
                 </Link>
               </div>
               <div className="d-flex flex-column">
-                <Link className="color-dark" href="/privacy">
-                  <a>
-                    <i className="fas fa-caret-right color-green me-2 fs-6" />
-                    <span>Privacy Policy</span>
-                  </a>
-                </Link>
                 <Link className="color-dark" href="/tnc">
                   <a>
                     <i className="fas fa-caret-right color-green me-2 fs-6" />

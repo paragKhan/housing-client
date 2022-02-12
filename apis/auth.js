@@ -1,4 +1,3 @@
-import store from "store";
 import axios from "./axios";
 
 export async function login(data) {
@@ -10,12 +9,6 @@ export async function login(data) {
 export async function signup(data) {
   const res = await axios.post("/signup", data);
   return res.data;
-}
-
-export function verifyToken() {
-  return axios.post("/verify-token", {
-    user_id: store.get("user").id,
-  });
 }
 
 export async function logout() {

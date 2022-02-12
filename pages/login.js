@@ -46,7 +46,9 @@ export default function Login() {
             <div className="card-body py-5">
               <h2 className="text-center color-dark fw-bold mb-5">Login</h2>
               {loginError && (
-                <p className="text-danger text-center">Login failed</p>
+                <p className="text-danger text-center">
+                  Email or Password doesn&apos;t match
+                </p>
               )}
               <form onSubmit={handleSubmit(onSubmit)}>
                 <input

@@ -22,6 +22,44 @@ export default function Navbar() {
 
   useEffect(() => {
     setUser(store.get("user"));
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll(".dropdown-menu").forEach(function (element) {
+        element.addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+      });
+
+      if (window.innerWidth < 992) {
+        document
+          .querySelectorAll(".navbar .dropdown")
+          .forEach(function (everydropdown) {
+            everydropdown.addEventListener("hidden.bs.dropdown", function () {
+              this.querySelectorAll(".submenu").forEach(function (
+                everysubmenu
+              ) {
+                everysubmenu.style.display = "none";
+              });
+            });
+          });
+
+        document
+          .querySelectorAll(".dropdown-menu a")
+          .forEach(function (element) {
+            element.addEventListener("click", function (e) {
+              let nextEl = this.nextElementSibling;
+              if (nextEl && nextEl.classList.contains("submenu")) {
+                e.preventDefault();
+                console.log(nextEl);
+                if (nextEl.style.display == "block") {
+                  nextEl.style.display = "none";
+                } else {
+                  nextEl.style.display = "block";
+                }
+              }
+            });
+          });
+      }
+    });
   }, []);
 
   const navActive = (path) => {
@@ -78,14 +116,11 @@ export default function Navbar() {
               <a
                 className="nav-link dropdown-toggle"
                 href="#"
-                id="navbarDropdown"
-                role="button"
                 data-bs-toggle="dropdown"
-                aria-expanded="false"
               >
                 More
               </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+              <ul className="dropdown-menu">
                 <li>
                   <Link href="/download">
                     <a className="dropdown-item">Housing Act</a>
@@ -96,15 +131,89 @@ export default function Navbar() {
                     <a className="dropdown-item">Housing Regulations</a>
                   </Link>
                 </li>
+
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Agencies
+                  <a
+                    className="dropdown-item d-flex align-items-center"
+                    href="#"
+                  >
+                    <i className="fas fa-caret-left fs-5 me-2"></i>Agencies
                   </a>
+                  <ul className="submenu dropdown-menu">
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Post Office
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Met Office
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Port Department
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Mortgage Corporation
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Road Traffic
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Bahamas Maritime Authority
+                      </a>
+                    </li>
+                  </ul>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Rent To Own
+                  <a
+                    className="dropdown-item d-flex align-items-center"
+                    href="#"
+                  >
+                    <i className="fas fa-caret-left fs-5 me-2"></i>DOH
+                    Department
                   </a>
+                  <ul className="submenu dropdown-menu">
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Customer Service
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Complaints Unit
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Planning Office
+                      </a>
+                    </li>
+                    {/* <li>
+                      <a className="dropdown-item" href="#">
+                        Submenu item 3 &raquo;{" "}
+                      </a>
+                      <ul className="submenu dropdown-menu">
+                        <li>
+                          <a className="dropdown-item" href="#">
+                            Multi level 1
+                          </a>
+                        </li>
+                      </ul>
+                    </li> */}
+                  </ul>
+                </li>
+                <li>
+                  <Link href="/about">
+                    <a className="dropdown-item">Plans To Own</a>
+                  </Link>
                 </li>
                 <li>
                   <Link href="/about">
@@ -146,6 +255,11 @@ export default function Navbar() {
                   <li>
                     <Link href="/application">
                       <a className="dropdown-item">Application</a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/application-status">
+                      <a className="dropdown-item">Application Status</a>
                     </Link>
                   </li>
                   <li>

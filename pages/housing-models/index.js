@@ -1,10 +1,25 @@
+import axios from "apis/axios";
 import Footer from "components/Footer";
 import HousingModelCard from "components/HousingModelCard";
 import Navbar from "components/Navbar";
-import Pagination from "components/Paginations";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
-export default function Subdivisions() {
+export default function HousingModels() {
+  const [housingModels, setHousingModels] = useState(null);
+  const [data, setData] = useState(null);
+
+  const router = useRouter();
+  const { paginate } = router.query;
+  const current_page = paginate || 1;
+
+  useEffect(() => {
+    axios.get(`/housing_models?page=${current_page}`).then((response) => {
+      setHousingModels(response.data.data);
+      setData(response.data);
+    });
+  }, [current_page]);
+
   return (
     <>
       <Navbar />
@@ -42,33 +57,6 @@ export default function Subdivisions() {
                 <option>Type 3</option>
                 <option>Type 4</option>
                 <option>Type 5</option>
-                <option>Type 6</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
               </select>
             </div>
             <div className="col text-center card-shadow cursor-pointer btn-green py-3">
@@ -77,71 +65,16 @@ export default function Subdivisions() {
           </div>
 
           <div className="row mt-5">
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
-            <div className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block">
-              <HousingModelCard />
-            </div>
+            {housingModels &&
+              housingModels.map((housingModel) => (
+                <div
+                  key={housingModel.id}
+                  className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block"
+                >
+                  <HousingModelCard data={housingModel} />
+                </div>
+              ))}
           </div>
-          <Pagination />
         </div>
       </div>
       <Footer />

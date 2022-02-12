@@ -19,21 +19,21 @@ export default function HousingIsland() {
           </div>
           <div className="col d-flex justify-content-center mb-3">
             <HousingIslandCard
-              url="/islands/2"
+              url="/islands/0"
               title="Abaco"
               img="/img/islands/Abaco Island.jpg"
             />
           </div>
           <div className="col d-flex justify-content-center mb-3">
             <HousingIslandCard
-              url="/islands/3"
+              url="/islands/2"
               title="Eleuthera"
               img="/img/islands/Eleuthera Island.jpg"
             />
           </div>
           <div className="col d-flex justify-content-center">
             <HousingIslandCard
-              url="/islands/4"
+              url="/islands/3"
               title="New Providence"
               img="/img/islands/New province.jpg"
             />

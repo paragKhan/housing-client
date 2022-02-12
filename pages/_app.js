@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <AuthProvider>
-        <ToastContainer />
+        <ToastContainer autoClose={2000} />
         <Component {...pageProps} />
       </AuthProvider>
       <Script

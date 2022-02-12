@@ -1,12 +1,233 @@
 import { getProfileData, updateProfileData } from "apis/profile";
 import Footer from "components/Footer";
-import HousingModelCard from "components/HousingModelCard";
+import HousingModelCards from "components/HousingModelCards";
 import LearnMore from "components/LearnMore";
 import Navbar from "components/Navbar";
 import ProfileCard from "components/ProfileCard";
+import withAuth from "HOC/withAuth";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+
+const islands = [
+  "Abaco",
+  "Acklins",
+  "Andros",
+  "Berry Islands",
+  "Bimini",
+  "Cat Island",
+  "Crooked Island",
+  "Eleuthera",
+  "Exuma",
+  "Grand Bahama",
+  "Inagua",
+  "Long Cay",
+  "Long Island",
+  "Mayaguana",
+  "New Providence",
+  "Ragged Island",
+  "Rum Cay",
+  "San Salvador",
+];
+const countries = [
+  "Bahamas",
+  "Afghanistan ",
+  "Albania",
+  "Algeria",
+  "Andorra",
+  "Angola",
+  "Antigua and Barbuda",
+  "Argentina",
+  "Armenia",
+  "Australia",
+  "Austria",
+  "Azerbaijan",
+  "Bahrain",
+  "Bangladesh",
+  "Barbados",
+  "Belarus",
+  "Belgium",
+  "Belize",
+  "Benin",
+  "Bhutan",
+  "Bolivia",
+  "Bosnia and Herzegovina",
+  "Botswana",
+  "Brazil",
+  "Brunei Darussalam",
+  "Bulgaria",
+  "Burkina Faso",
+  "Burundi",
+  "Cabo Verde",
+  "Cambodia",
+  "Cameroon",
+  "Canada",
+  "Central African Republic",
+  "Chad",
+  "Chile",
+  "China",
+  "Colombia",
+  "Comoros",
+  "Congo",
+  "Costa Rica",
+  "Côte d'Ivoire",
+  "Croatia",
+  "Cuba",
+  "Cyprus",
+  "Czechia",
+  "Korea",
+  "Congo",
+  "Denmark",
+  "Djibouti",
+  "Dominica",
+  "Dominican Republic",
+  "Ecuador",
+  "Egypt",
+  "El Salvador",
+  "Equatorial Guinea",
+  "Eritrea",
+  "Estonia",
+  "Eswatini",
+  "Ethiopia",
+  "Fiji",
+  "Finland",
+  "France",
+  "Gabon",
+  "Gambia",
+  "Georgia",
+  "Germany",
+  "Ghana",
+  "Greece",
+  "Grenada",
+  "Guatemala",
+  "Guinea",
+  "Guinea-Bissau",
+  "Guyana",
+  "Haiti",
+  "Honduras",
+  "Hungary",
+  "Iceland",
+  "India",
+  "Indonesia",
+  "Iran",
+  "Iraq",
+  "Ireland",
+  "Israel",
+  "Italy",
+  "Jamaica",
+  "Japan",
+  "Jordan",
+  "Kazakhstan",
+  "Kenya",
+  "Kiribati",
+  "Kuwait",
+  "Kyrgyzstan",
+  "Lao People's Democratic Republic",
+  "Latvia",
+  "Lebanon",
+  "Lesotho",
+  "Liberia",
+  "Libya",
+  "Liechtenstein",
+  "Lithuania",
+  "Luxembourg",
+  "Madagascar",
+  "Malawi",
+  "Malaysia",
+  "Maldives",
+  "Mali",
+  "Malta",
+  "Marshall Islands",
+  "Mauritania",
+  "Mauritius",
+  "Mexico",
+  "Micronesia",
+  "Monaco",
+  "Mongolia",
+  "Montenegro",
+  "Morocco",
+  "Mozambique",
+  "Myanmar",
+  "Namibia",
+  "Nauru",
+  "Nepal",
+  "Netherlands",
+  "New Zealand",
+  "Nicaragua",
+  "Niger",
+  "Nigeria",
+  "North Macedonia",
+  "Norway",
+  "Oman",
+  "Pakistan",
+  "Palau",
+  "Panama",
+  "Papua New Guinea",
+  "Paraguay",
+  "Peru",
+  "Philippines",
+  "Poland",
+  "Portugal",
+  "Qatar",
+  "Republic of Korea",
+  "Republic of Moldova",
+  "Romania",
+  "Russian Federation",
+  "Rwanda",
+  "Saint Kitts and Nevis",
+  "Saint Lucia",
+  "Saint Vincent and the Grenadines",
+  "Samoa",
+  "San Marino",
+  "Sao Tome and Principe",
+  "Saudi Arabia",
+  "Senegal",
+  "Serbia",
+  "Seychelles",
+  "Sierra Leone",
+  "Singapore",
+  "Slovakia",
+  "Slovenia",
+  "Solomon Islands",
+  "Somalia",
+  "South Africa",
+  "South Sudan",
+  "Spain",
+  "Sri Lanka",
+  "Sudan",
+  "Suriname",
+  "Sweden",
+  "Switzerland",
+  "Syrian Arab Republic",
+  "Tajikistan",
+  "Thailand",
+  "Timor-Leste",
+  "Togo",
+  "Tonga",
+  "Trinidad and Tobago",
+  "Tunisia",
+  "Turkey",
+  "Turkmenistan",
+  "Tuvalu",
+  "Uganda",
+  "Ukraine",
+  "United Arab Emirates ",
+  "United Kingdom",
+  "United Republic of Tanzania ",
+  "United States of America ",
+  "Uruguay",
+  "Uzbekistan",
+  "Vanuatu",
+  "Venezuela",
+  "Viet Nam",
+  "Yemen",
+  "Zambia",
+  "Zimbabwe",
+  "Holy See",
+  "State of Palestine",
+  "Cook Islands",
+  "Niue",
+];
 
 function Profile() {
   const [profile, setProfile] = useState(null);
@@ -23,6 +244,7 @@ function Profile() {
       setProfile(res);
       setEditing(false);
       toast.success("Profile updated");
+      location.reload();
     } catch (error) {
       toast.error("Something went wrong");
     }
@@ -43,14 +265,7 @@ function Profile() {
         <div className="container py-5">
           <div className="row">
             <div className="col-12 col-lg-8">
-              {profile && (
-                <ProfileCard
-                  onImageChange={(newImage) =>
-                    setProfile({ ...profile, photo: newImage })
-                  }
-                  data={profile}
-                />
-              )}
+              <ProfileCard />
               {profile && (
                 <div className="card card-shadow p-3">
                   <div className="card-body">
@@ -211,9 +426,11 @@ function Profile() {
                           className="form-control bg-light border-0 "
                         >
                           <option value="">Not Selected</option>
-                          <option value="male">USA</option>
-                          <option value="female">UK</option>
-                          <option value="other">CANADA</option>
+                          {countries.map((country) => (
+                            <option key={country.code} value={country}>
+                              {country}
+                            </option>
+                          ))}
                         </select>
                       </div>
                       <div className="input-group mb-3">
@@ -233,9 +450,11 @@ function Profile() {
                           className="form-control bg-light border-0 "
                         >
                           <option value="">Not Selected</option>
-                          <option value="usa">USA</option>
-                          <option value="uk">UK</option>
-                          <option value="canada">CANADA</option>
+                          {islands.map((island) => (
+                            <option key={island} value={island}>
+                              {island}
+                            </option>
+                          ))}
                         </select>
                       </div>
 
@@ -256,9 +475,11 @@ function Profile() {
                           className="form-control bg-light border-0 "
                         >
                           <option value="">Not Selected</option>
-                          <option value="usa">USA</option>
-                          <option value="uk">UK</option>
-                          <option value="canada">CANADA</option>
+                          {countries.map((country) => (
+                            <option key={country} value={country}>
+                              {country}
+                            </option>
+                          ))}
                         </select>
                       </div>
                       <textarea
@@ -294,12 +515,8 @@ function Profile() {
             </div>
             <div className="d-none d-lg-block col-lg-4">
               <LearnMore />
-              <div className="mt-5">
-                <HousingModelCard />
-              </div>
-              <div className="mt-5">
-                <HousingModelCard />
-              </div>
+              <br />
+              <HousingModelCards count={3} />
             </div>
           </div>
         </div>
@@ -309,4 +526,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default withAuth(Profile);

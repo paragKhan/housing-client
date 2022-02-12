@@ -11,7 +11,7 @@ function Map() {
     <div>
       <GoogleMap
         defaultZoom={10}
-        defaultCenter={{ lat: 45.421532, lng: -75.697189 }}
+        defaultCenter={{ lat: 25.0772227, lng: -77.3440482 }}
       >
         <Marker
           position={{

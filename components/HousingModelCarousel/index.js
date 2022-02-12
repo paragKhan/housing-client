@@ -1,7 +1,8 @@
 import Image from "next/image";
 import React from "react";
 
-export default function HousingModelCarousel() {
+export default function HousingModelCarousel({ gallery }) {
+  const photos = gallery.split("|");
   return (
     <div
       id="carouselExampleControls"
@@ -9,30 +10,21 @@ export default function HousingModelCarousel() {
       data-bs-ride="carousel"
     >
       <div className="carousel-inner">
-        <div className="carousel-item position-relative hero-img-rounded active">
-          <Image
-            src="/img/slides/slide-2.jpg"
-            layout="fill"
-            alt="..."
-            objectFit="cover"
-          />
-        </div>
-        <div className="carousel-item position-relative hero-img-rounded">
-          <Image
-            src="/img/slide-2.jpg"
-            layout="fill"
-            alt="..."
-            objectFit="cover"
-          />
-        </div>
-        <div className="carousel-item position-relative hero-img-rounded">
-          <Image
-            src="/img/slide-3.jpg"
-            layout="fill"
-            alt="..."
-            objectFit="cover"
-          />
-        </div>
+        {photos.map((photo, index) => (
+          <div
+            key={index}
+            className={`carousel-item position-relative hero-img-rounded ${
+              index == 0 ? "active" : ""
+            }`}
+          >
+            <Image
+              src={process.env.IMAGE_URL + photo}
+              layout="fill"
+              alt="..."
+              objectFit="cover"
+            />
+          </div>
+        ))}
       </div>
       <button
         className="carousel-control-prev"
