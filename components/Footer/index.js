@@ -42,7 +42,7 @@ export default function Footer() {
                     <span>About Us</span>
                   </a>
                 </Link>
-                <Link className="color-dark" href="/faqs">
+                <Link className="color-dark" href="/faq">
                   <a>
                     <i className="fas fa-caret-right color-green me-2 fs-6" />
                     <span>FAQs</span>
@@ -63,12 +63,14 @@ export default function Footer() {
                   </a>
                 </Link>
                 <Link className="color-dark" href="/housing-act">
-                  <a>
-                    <i className="fas fa-caret-right color-green me-2 fs-6" />
-                    <span>Housing Act</span>
-                  </a>
+                  <Link href="/download">
+                    <a>
+                      <i className="fas fa-caret-right color-green me-2 fs-6" />
+                      <span>Housing Act</span>
+                    </a>
+                  </Link>
                 </Link>
-                <Link className="color-dark" href="/housing-regulations">
+                <Link className="color-dark" href="/download">
                   <a>
                     <i className="fas fa-caret-right color-green me-2 fs-6" />
                     <span>Housing Regulations</span>
@@ -94,8 +96,21 @@ export default function Footer() {
         </div>
       </div>
       <div className="bg-dark text-center text-light py-3">
-        &copy; {new Date().toDateString().split(" ").slice(-1)[0]}. All rights
-        reserved.
+        <span>
+          &copy; {new Date().toDateString().split(" ").slice(-1)[0]}. All rights
+          reserved.
+        </span>
+        <br />
+        <span>
+          Powered By{" "}
+          <a className="color-green" href="https://www.sunrise-bahamas.net/">
+            SunRise Communications
+          </a>{" "}
+          &{" "}
+          <a className="color-green" href="https://thevirtualbd.com/">
+            The Virtual BD
+          </a>
+        </span>
       </div>
     </div>
   );

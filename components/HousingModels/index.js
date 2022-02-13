@@ -16,7 +16,7 @@ export default function HousingModels() {
       <div className="container">
         <div className="text-center">
           <h3>Housing Models</h3>
-          <p>Check out some of our latest properties.</p>
+          <p>Check out some of our latest homes.</p>
         </div>
         {housingModels && (
           <div className="row  pt-3">

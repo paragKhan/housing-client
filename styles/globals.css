@@ -49,6 +49,7 @@ input[type="checkbox"].invalid {
 @media all and (min-width: 992px) {
   .dropdown-menu li {
     position: relative;
+    z-index: 99999999;
   }
   .dropdown-menu .submenu {
     display: none;

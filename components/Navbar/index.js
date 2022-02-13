@@ -131,12 +131,8 @@ export default function Navbar() {
                     <a className="dropdown-item">Housing Regulations</a>
                   </Link>
                 </li>
-
                 <li>
-                  <a
-                    className="dropdown-item d-flex align-items-center"
-                    href="#"
-                  >
+                  <a className="dropdown-item d-flex align-items-center">
                     <i className="fas fa-caret-left fs-5 me-2"></i>Agencies
                   </a>
                   <ul className="submenu dropdown-menu">
