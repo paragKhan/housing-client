@@ -2,24 +2,38 @@ import axios from "apis/axios";
 import Footer from "components/Footer";
 import Navbar from "components/Navbar";
 import SubdivisionCard from "components/SubdivisionCard";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 export default function Subdivisions() {
   const [subdivisions, setSubdivisions] = useState([]);
   const [data, setData] = useState(null);
+  const [locations, setLocations] = useState([]);
+  const [searchLocation, setSearchLocation] = useState("");
 
   const router = useRouter();
-  const { paginate } = router.query;
+  const { paginate, location } = router.query;
   const current_page = paginate || 1;
+  const current_location = location || "";
+
+  const handleSearch = () => {
+    router.push(`/subdivisions?location=${searchLocation}`);
+  };
 
   useEffect(() => {
-    axios.get(`/subdivisions?page=${current_page}`).then((response) => {
-      setSubdivisions(response.data.data);
-      setData(response.data);
-      console.log(response.data);
+    axios
+      .get(`/subdivisions?page=${current_page}&location=${current_location}`)
+      .then((response) => {
+        setSubdivisions(response.data.data);
+        setData(response.data);
+      });
+
+    axios.get("/subdivisions/get-locations").then((response) => {
+      setLocations(response.data);
     });
-  }, [current_page]);
+    setSearchLocation(current_location);
+  }, [current_page, current_location]);
 
   return (
     <>
@@ -31,63 +45,25 @@ export default function Subdivisions() {
         <div className="container">
           <div className="row mb-5" style={{ marginTop: "-30px" }}>
             <div className="col text-center bg-white card-shadow py-2">
-              <select className="form-control" id="exampleFormControlSelect1">
-                <option>Location</option>
-                <option>Location 1</option>
-                <option>Location 2</option>
-                <option>Location 3</option>
-                <option>Location 4</option>
-                <option>Location 5</option>
+              <select
+                value={searchLocation}
+                onChange={(e) => setSearchLocation(e.target.value)}
+                className="form-control"
+                id="exampleFormControlSelect1"
+              >
+                <option value="">Select Location</option>
+                {locations.map((location, index) => (
+                  <option key={index} value={location}>
+                    {location.charAt(0).toUpperCase() + location.slice(1)}
+                  </option>
+                ))}
               </select>
             </div>
-            <div className="col text-center bg-white card-shadow py-2">
-              <select className="form-control" id="exampleFormControlSelect1">
-                <option>Status</option>
-                <option>Status 1</option>
-                <option>Status 2</option>
-                <option>Status 3</option>
-                <option>Status 4</option>
-                <option>Status 5</option>
-              </select>
-            </div>
-            <div className="col text-center bg-white card-shadow py-2">
-              <select className="form-control" id="exampleFormControlSelect1">
-                <option>Type</option>
-                <option>Type 1</option>
-                <option>Type 2</option>
-                <option>Type 3</option>
-                <option>Type 4</option>
-                <option>Type 5</option>
-                <option>Type 6</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-                <option>Type 7</option>
-              </select>
-            </div>
-            <div className="col text-center card-shadow cursor-pointer btn-green py-3">
+
+            <div
+              onClick={handleSearch}
+              className="col text-center card-shadow cursor-pointer btn-green py-3"
+            >
               Search
             </div>
           </div>
@@ -101,6 +77,26 @@ export default function Subdivisions() {
                 <SubdivisionCard subdivision={subdivision} />
               </div>
             ))}
+          </div>
+          <div className="d-flex justify-content-center pb-3">
+            {data && data.prev_page_url && (
+              <Link
+                href={`/subdivisions?paginate=${
+                  data.current_page - 1
+                }&location=${current_location}`}
+              >
+                <a className="btn btn-green me-3">{"<Prev"}</a>
+              </Link>
+            )}
+            {data && data.next_page_url && (
+              <Link
+                href={`/subdivisions?paginate=${
+                  data.current_page + 1
+                }&location=${current_location}`}
+              >
+                <a className="btn btn-green">{"Next>"}</a>
+              </Link>
+            )}
           </div>
         </div>
       </div>
