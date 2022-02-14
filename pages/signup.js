@@ -42,9 +42,7 @@ export default function Signup() {
   const onSubmit = async (data) => {
     try {
       await signup(data);
-      toast.success(
-        "Signup Successful. Please check your email for verification"
-      );
+      toast.success("Your account has been created successfully");
       reset();
       Router.push("/login");
     } catch (err) {

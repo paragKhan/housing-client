@@ -138,12 +138,12 @@ export default function Contact() {
           </div>
         </div>
       </div>
-      <div style={{ height: 500 }}>
+      <div className="d-none" style={{ height: 500 }}>
         <Map
           loadingElement={<div style={{ height: "100%" }} />}
           containerElement={<div style={{ height: "100%" }} />}
           mapElement={<div style={{ height: "100%" }} />}
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyBhq-9fMcsdEdMLD2R-M7_kviAoqudK1t0&v=3.exp&libraries=geometry,drawing,places`}
         />
       </div>
       <Footer />

@@ -12,7 +12,7 @@ const withAuth = (WrappedComponent) => {
 
     useEffect(() => {
       if (!token || !user) {
-        router.replace("/");
+        router.replace("/login");
       }
 
       setVerified(true);
