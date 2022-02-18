@@ -1,3 +1,4 @@
+import axios from "apis/axios";
 import { getProfileData, updateProfileData } from "apis/profile";
 import uploader from "apis/uploader";
 import Image from "next/image";
@@ -7,6 +8,7 @@ import { toast } from "react-toastify";
 export default function ProfileCard() {
   const profileImageInput = createRef();
   const [data, setData] = useState(null);
+  const [sendingEmail, setSendingEmail] = useState(false);
 
   const handleImageUpload = async () => {
     const file = profileImageInput.current.files[0];
@@ -16,6 +18,20 @@ export default function ProfileCard() {
     const res = await updateProfileData({ photo });
     toast.success("Profile image updated");
     setData({ ...data, photo: res.photo });
+  };
+
+  const handleSendEmailVerification = async () => {
+    setSendingEmail(true);
+    axios
+      .post("/send-verification-email")
+      .then((res) => {
+        toast.success(res.data.message);
+        setSendingEmail(false);
+      })
+      .catch((err) => {
+        toast.error("Something went wrong");
+        setSendingEmail(false);
+      });
   };
 
   useEffect(() => {
@@ -33,8 +49,8 @@ export default function ProfileCard() {
           <div className="card-body">
             <h5>{data.fname + " " + data.lname}</h5>
             <hr />
-            <div className="d-flex mb-3">
-              <div className="position-relative">
+            <div className="d-block d-md-flex mb-3">
+              <div className="position-relative text-center">
                 <Image
                   src={
                     data.photo
@@ -57,10 +73,30 @@ export default function ProfileCard() {
                   type="file"
                 />
               </div>
-              <div className="ms-5 color-dark">
+              <div className="ms-md-5 color-dark">
                 <p>
-                  <i className="far fa-envelope me-2" />
-                  <span>Email: {data.email}</span>
+                  <span className="d-flex align-items-center">
+                    <i className="far fa-envelope me-2" />
+                    Email: {data.email}
+                    {data.email_verified_at && (
+                      <i
+                        tittle="Email verified"
+                        className="ms-2 color-green fas fa-check-circle"
+                      />
+                    )}
+                  </span>
+                  {!data.email_verified_at && (
+                    <span className="small text-danger">
+                      Your email is not verified.
+                      <button
+                        disabled={sendingEmail}
+                        onClick={handleSendEmailVerification}
+                        className="badge btn color-blue"
+                      >
+                        {sendingEmail ? "Sending..." : "Verify Now"}
+                      </button>
+                    </span>
+                  )}
                 </p>
                 <p>
                   <i className="fas fa-phone-alt me-2" />

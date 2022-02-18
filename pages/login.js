@@ -95,7 +95,7 @@ export default function Login() {
                 </Link>
                 <br />
                 <span>Or you can </span>
-                <Link href="/">
+                <Link href="/forgot-password">
                   <a>
                     <u className="text-danger">reset your password</u>
                   </a>

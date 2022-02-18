@@ -17,6 +17,7 @@ export default function Partners() {
           <img className="pe-none" src="/img/partners/Logo 04.png" alt="" />
           <img className="pe-none" src="/img/partners/Logo 05.png" alt="" />
           <img className="pe-none" src="/img/partners/Logo 06.png" alt="" />
+          <img className="pe-none" src="/img/partners/Logo 07.png" alt="" />
         </div>
       </Marquee>
     </div>

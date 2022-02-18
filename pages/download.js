@@ -9,15 +9,8 @@ export default function Download() {
     <>
       <Navbar />
       <div className="container-fluid">
-        <div
-          className="row"
-          style={{
-            background:
-              "url('https://i.pinimg.com/originals/66/d9/f5/66d9f5afdc5337d3f9eac362b970c426.jpg')",
-            backgroundSize: "cover",
-          }}
-        >
-          <h3 className="bg-overlay py-5 text-light text-center mb-0">
+        <div className="row">
+          <h3 className="bg-gradient py-5 text-light text-center mb-0">
             Download
           </h3>
         </div>

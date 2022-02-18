@@ -426,8 +426,8 @@ function Profile() {
                           className="form-control bg-light border-0 "
                         >
                           <option value="">Not Selected</option>
-                          {countries.map((country) => (
-                            <option key={country.code} value={country}>
+                          {countries.map((country, index) => (
+                            <option key={index} value={country}>
                               {country}
                             </option>
                           ))}
@@ -450,8 +450,8 @@ function Profile() {
                           className="form-control bg-light border-0 "
                         >
                           <option value="">Not Selected</option>
-                          {islands.map((island) => (
-                            <option key={island} value={island}>
+                          {islands.map((island, index) => (
+                            <option key={index} value={island}>
                               {island}
                             </option>
                           ))}
@@ -475,8 +475,8 @@ function Profile() {
                           className="form-control bg-light border-0 "
                         >
                           <option value="">Not Selected</option>
-                          {countries.map((country) => (
-                            <option key={country} value={country}>
+                          {countries.map((country, index) => (
+                            <option key={index} value={country}>
                               {country}
                             </option>
                           ))}
