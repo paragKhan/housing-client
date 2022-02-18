@@ -62,13 +62,11 @@ export default function Footer() {
                     <span>Terms & Conditions</span>
                   </a>
                 </Link>
-                <Link className="color-dark" href="/housing-act">
-                  <Link href="/download">
-                    <a>
-                      <i className="fas fa-caret-right color-green me-2 fs-6" />
-                      <span>Housing Act</span>
-                    </a>
-                  </Link>
+                <Link href="/download">
+                  <a>
+                    <i className="fas fa-caret-right color-green me-2 fs-6" />
+                    <span>Housing Act</span>
+                  </a>
                 </Link>
                 <Link className="color-dark" href="/download">
                   <a>

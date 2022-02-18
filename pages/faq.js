@@ -7,32 +7,70 @@ import { Accordion } from "react-bootstrap";
 
 const data = [
   {
-    question: "What are the documents needed to qualify for a home?",
-    answer: "Put your answer here",
+    question: "How can I apply?",
+    answer:
+      "You must first register and create an account on <a href='www.mothbahamas.com'><u>www.mothbahamas.com</u></a> Once you have created an account, Click on the Department Of Housing tab and follow the prompts.",
   },
   {
-    question: "How old do I have to be to apply for a home?",
-    answer: "Put your answer here",
+    question: "How long does the entire process take to complete?",
+    answer:
+      "Application process within 5 business days, once all required documents are received",
   },
   {
-    question: "How can I finance my new home?",
-    answer: "Put your answer here",
+    question: "Can I apply jointly with a sibling or another family member?",
+    answer:
+      "Yes, Joint ownership is permissible once all criteria are met. Should you apply for joint ownership and be approved, you would not be qualified for an additional home.",
   },
   {
-    question: "Am I able to purchase a reposed home?",
-    answer: "Put your answer here",
+    question: "Can a self-employed person apply?",
+    answer:
+      "Yes. Once you meet the requirements, all gainfully employed person can make an application.",
   },
   {
-    question: "How can I track my application? ",
-    answer: "Put your answer here",
+    question: "Can a Foreigners Apply?",
+    answer: "No, Our housing packages are reserve for Bahamians only.",
   },
   {
-    question: "What can I do if my application is rejected?",
-    answer: "Put your answer here",
+    question:
+      "Can I Build a 2 story home on a lot purchased from Department Of Housing?",
+    answer: "No, because the subdivisions are zoned.",
   },
   {
-    question: "What are the next steps if my application is approved?",
-    answer: "Put your answer here",
+    question: "Are multifamily lots available?",
+    answer: "Yes.",
+  },
+  {
+    question: "Are multifamily (Apartments) packages available?",
+    answer: "Not through the Department of Housing.",
+  },
+  {
+    question: "What the down payment?",
+    answer: "The is down payment is 5% or depending on the Institutions",
+  },
+  {
+    question: "Can I used another lending institution other than BMC?",
+    answer: "Yes",
+  },
+  {
+    question: "What areas are being considered for housing development?",
+    answer:
+      'We are building homes throughout the Bahamas. Our first phase is in the New Providence, The Carmichael Village Subdivision. Visit our web page at <a href="www.mothbahamas.com"><u>www.mothbahamas.com</u></a>   to stay updated on new and existing developments.',
+  },
+  {
+    question:
+      "How do I keep in contact with my process or if in need of further information?",
+    answer:
+      "Email dohcustomerservice@hahamas.gov.bs for inquiries or call 242-302-5800.",
+  },
+  {
+    question: "What is the cost of purchasing a home?",
+    answer:
+      "The purchase cost varies base on your selection. Once you select a model and an area, our housing officer will sit with you guiding you through the entire process and provide valuable information like the cost of your new house.Remember it’s Affordable Homes.",
+  },
+  {
+    question: "Would I qualify for any tax exemption?",
+    answer:
+      "Yes, as this is your first home you would qualify for the “First time homeowners’ exemption” benefits and Real Property Tax exemption for an additional five (5) years. Should the value of your property after the five (5) years remain under 250K, you continue to enjoy “Owner Occupies” exemption and pay no Real Property Tax.",
   },
 ];
 
@@ -51,7 +89,9 @@ export default function Faq() {
                 {data.map((item, i) => (
                   <Accordion.Item className="mb-2" key={i} eventKey={i}>
                     <Accordion.Header>{item.question}</Accordion.Header>
-                    <Accordion.Body>{item.answer}</Accordion.Body>
+                    <Accordion.Body
+                      dangerouslySetInnerHTML={{ __html: item.answer }}
+                    />
                   </Accordion.Item>
                 ))}
               </Accordion>

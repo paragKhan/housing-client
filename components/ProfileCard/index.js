@@ -49,8 +49,8 @@ export default function ProfileCard() {
           <div className="card-body">
             <h5>{data.fname + " " + data.lname}</h5>
             <hr />
-            <div className="d-flex mb-3">
-              <div className="position-relative">
+            <div className="d-block d-md-flex mb-3">
+              <div className="position-relative text-center">
                 <Image
                   src={
                     data.photo
@@ -73,12 +73,17 @@ export default function ProfileCard() {
                   type="file"
                 />
               </div>
-              <div className="ms-5 color-dark">
+              <div className="ms-md-5 color-dark">
                 <p>
                   <span className="d-flex align-items-center">
                     <i className="far fa-envelope me-2" />
                     Email: {data.email}
-                    <i className="ms-2 color-green fas fa-check-circle" />
+                    {data.email_verified_at && (
+                      <i
+                        tittle="Email verified"
+                        className="ms-2 color-green fas fa-check-circle"
+                      />
+                    )}
                   </span>
                   {!data.email_verified_at && (
                     <span className="small text-danger">
