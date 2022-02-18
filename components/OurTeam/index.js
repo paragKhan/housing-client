@@ -17,18 +17,19 @@ export default function OurTeam() {
       email: "gaynellrolle@bahamas.gov.bs",
       phone: "",
     },
-    {
-      name: "Mr. Thomas Ferguson",
-      designation: "Acting Director of Housing",
-      photo: "/img/team/3.jpeg",
-      email: "thomasferguson@bahamas.gov.bs",
-      phone: "",
-    },
+
     {
       name: "Mr. Oral Lafleur",
       designation: "Acting Chief Housing Officer",
-      photo: "/img/team/4.png",
+      photo: "/img/team/3.png",
       email: "orallafleur@bahamas.gov.bs",
+      phone: "",
+    },
+    {
+      name: "Mr. Thomas Ferguson",
+      designation: "Acting Director of Housing",
+      photo: "/img/team/4.jpeg",
+      email: "thomasferguson@bahamas.gov.bs",
       phone: "",
     },
   ];

@@ -60,7 +60,7 @@ const data = [
     question:
       "How do I keep in contact with my process or if in need of further information?",
     answer:
-      "Email dohcustomerservice@hahamas.gov.bs for inquiries or call 242-302-5800.",
+      "Email <a href='mailto:dohcustomerservice@bahamas.gov.bs'><u>dohcustomerservice@bahamas.gov.bs</u></a> for inquiries or call <a href='tel:2423025800'><u>242-302-5800</u></a>.",
   },
   {
     question: "What is the cost of purchasing a home?",
