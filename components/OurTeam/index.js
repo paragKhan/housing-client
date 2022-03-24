@@ -21,7 +21,7 @@ export default function OurTeam() {
     {
       name: "Mr. Oral Lafleur",
       designation: "Acting Chief Housing Officer",
-      photo: "/img/team/3.png",
+      photo: "/img/team/3.jpg",
       email: "orallafleur@bahamas.gov.bs",
       phone: "",
     },
