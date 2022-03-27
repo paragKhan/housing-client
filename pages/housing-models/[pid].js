@@ -133,7 +133,7 @@ export default function HousingModel() {
                         >
                           <img
                             src={
-                              process.env.IMAGE_URL +
+                              process.env.NEXT_PUBLIC_IMAGE_URL +
                               housingModel.master_plan_photo
                             }
                             className="img-fluid"
@@ -147,7 +147,7 @@ export default function HousingModel() {
                         >
                           <img
                             src={
-                              process.env.IMAGE_URL +
+                              process.env.NEXT_PUBLIC_IMAGE_URL +
                               housingModel.basic_plan_photo
                             }
                             className="img-fluid"

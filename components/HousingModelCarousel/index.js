@@ -18,7 +18,7 @@ export default function HousingModelCarousel({ gallery }) {
             }`}
           >
             <Image
-              src={process.env.IMAGE_URL + photo}
+              src={process.env.NEXT_PUBLIC_IMAGE_URL + photo}
               layout="fill"
               alt="..."
               objectFit="cover"

@@ -26,7 +26,7 @@ export default function Subdivision() {
       {showLightbox && (
         <Lightbox
           onClose={() => setShowLightbox(false)}
-          image={process.env.IMAGE_URL + subdivision.photo}
+          image={process.env.NEXT_PUBLIC_IMAGE_URL + subdivision.photo}
         />
       )}
       <div className="bg-gradient py-5">
@@ -39,7 +39,7 @@ export default function Subdivision() {
             <img
               onClick={() => setShowLightbox(true)}
               className="img-fluid card-shadow"
-              src={process.env.IMAGE_URL + subdivision.photo}
+              src={process.env.NEXT_PUBLIC_IMAGE_URL + subdivision.photo}
             />
           )}
         </div>

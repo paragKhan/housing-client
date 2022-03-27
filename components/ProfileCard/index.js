@@ -54,7 +54,7 @@ export default function ProfileCard() {
                 <Image
                   src={
                     data.photo
-                      ? process.env.IMAGE_URL + data.photo
+                      ? process.env.NEXT_PUBLIC_IMAGE_URL + data.photo
                       : "/img/no-photo.png"
                   }
                   className="rounded-circle"

@@ -4,7 +4,10 @@ import React from "react";
 export default function SubdivisionCard({ subdivision }) {
   return (
     <div className="card border-0 card-shadow pb-2" style={{ maxWidth: 300 }}>
-      <img height={200} src={process.env.IMAGE_URL + subdivision.photo} />
+      <img
+        height={200}
+        src={process.env.NEXT_PUBLIC_IMAGE_URL + subdivision.photo}
+      />
       <div className="mt-3 px-4 color-dark">
         <h6 className="fw-bold">{subdivision.heading}</h6>
         <div className="small mb-2">
