@@ -1,3 +1,4 @@
+import Maintenance from "components/Maintenance";
 import Head from "next/head";
 import Script from "next/script";
 import AuthProvider from "providers/AuthProvider";
@@ -6,7 +7,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
-  return (
+  return process.env.NEXT_PUBLIC_MAINTENANCE_MODE == 1 ? (
+    <Maintenance />
+  ) : (
     <>
       <Head>
         <link
