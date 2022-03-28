@@ -3,7 +3,15 @@ import React from "react";
 
 export default function SubdivisionCard({ subdivision }) {
   return (
-    <div className="card border-0 card-shadow pb-2" style={{ maxWidth: 300 }}>
+    <div
+      className="position-relative card border-0 card-shadow pb-2"
+      style={{ maxWidth: 300 }}
+    >
+      {subdivision.category && (
+        <span className="position-absolute bg-red shadow top-0 start-0 translate-middle-y  px-2">
+          {subdivision.category === "featured" ? "Featured" : "New Arrivals"}
+        </span>
+      )}
       <img
         height={200}
         src={process.env.NEXT_PUBLIC_IMAGE_URL + subdivision.photo}

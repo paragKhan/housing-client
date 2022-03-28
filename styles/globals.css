@@ -159,6 +159,10 @@ input[type="checkbox"].invalid {
 }
 
 /* backgrounds */
+.bg-red {
+  background: #ff2020 !important;
+  color: white !important;
+}
 .bg-green {
   background: #00a388 !important;
   color: white !important;

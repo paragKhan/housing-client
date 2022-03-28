@@ -7,9 +7,13 @@ import LearnMore from "components/LearnMore";
 import Navbar from "components/Navbar";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import Lightbox from "react-awesome-lightbox";
+import "react-awesome-lightbox/build/style.css";
 
 export default function HousingModel() {
   const [housingModel, setHousingModel] = useState(null);
+  const [showLightbox, setShowLightbox] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState("");
 
   const router = useRouter();
   const { pid } = router.query;
@@ -28,6 +32,12 @@ export default function HousingModel() {
   return (
     <>
       <Navbar />
+      {showLightbox && (
+        <Lightbox
+          onClose={() => setShowLightbox(false)}
+          image={process.env.NEXT_PUBLIC_IMAGE_URL + lightboxImage}
+        />
+      )}
       <div className="bg-gradient py-5">
         <h3 className="text-center">Housing Model Details</h3>
       </div>
@@ -132,6 +142,10 @@ export default function HousingModel() {
                           aria-labelledby="home-tab"
                         >
                           <img
+                            onClick={() => {
+                              setShowLightbox(true);
+                              setLightboxImage(housingModel.master_plan_photo);
+                            }}
                             src={
                               process.env.NEXT_PUBLIC_IMAGE_URL +
                               housingModel.master_plan_photo
@@ -146,6 +160,10 @@ export default function HousingModel() {
                           aria-labelledby="profile-tab"
                         >
                           <img
+                            onClick={() => {
+                              setShowLightbox(true);
+                              setLightboxImage(housingModel.basic_plan_photo);
+                            }}
                             src={
                               process.env.NEXT_PUBLIC_IMAGE_URL +
                               housingModel.basic_plan_photo

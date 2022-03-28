@@ -11,19 +11,25 @@ export default function Subdivisions() {
   const [data, setData] = useState(null);
   const [locations, setLocations] = useState([]);
   const [searchLocation, setSearchLocation] = useState("");
+  const [searchCategory, setSearchCategory] = useState("");
 
   const router = useRouter();
-  const { paginate, location } = router.query;
+  const { paginate, location, category } = router.query;
   const current_page = paginate || 1;
   const current_location = location || "";
+  const current_category = category || "";
 
   const handleSearch = () => {
-    router.push(`/subdivisions?location=${searchLocation}`);
+    router.push(
+      `/subdivisions?location=${searchLocation}&category=${searchCategory}`
+    );
   };
 
   useEffect(() => {
     axios
-      .get(`/subdivisions?page=${current_page}&location=${current_location}`)
+      .get(
+        `/subdivisions?page=${current_page}&location=${current_location}&category=${current_category}`
+      )
       .then((response) => {
         setSubdivisions(response.data.data);
         setData(response.data);
@@ -33,7 +39,8 @@ export default function Subdivisions() {
       setLocations(response.data);
     });
     setSearchLocation(current_location);
-  }, [current_page, current_location]);
+    setSearchCategory(current_category);
+  }, [current_page, current_location, current_category]);
 
   return (
     <>
@@ -44,6 +51,19 @@ export default function Subdivisions() {
         </div>
         <div className="container">
           <div className="row mb-5" style={{ marginTop: "-30px" }}>
+            <div className="col text-center bg-white card-shadow py-2">
+              <select
+                value={searchCategory}
+                onChange={(e) => setSearchCategory(e.target.value)}
+                className="form-control"
+                id="exampleFormControlSelect1"
+              >
+                <option value="">Select Category</option>
+                <option value="featured">Featured</option>
+                <option value="new_arrival">New Arrivals</option>
+              </select>
+            </div>
+
             <div className="col text-center bg-white card-shadow py-2">
               <select
                 value={searchLocation}
@@ -83,7 +103,7 @@ export default function Subdivisions() {
               <Link
                 href={`/subdivisions?paginate=${
                   data.current_page - 1
-                }&location=${current_location}`}
+                }&location=${current_location}&category=${current_category}`}
               >
                 <a className="btn btn-green me-3">{"<Prev"}</a>
               </Link>
@@ -92,7 +112,7 @@ export default function Subdivisions() {
               <Link
                 href={`/subdivisions?paginate=${
                   data.current_page + 1
-                }&location=${current_location}`}
+                }&location=${current_location}&category=${current_category}`}
               >
                 <a className="btn btn-green">{"Next>"}</a>
               </Link>
