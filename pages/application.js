@@ -823,6 +823,45 @@ function Application() {
                         </div>
                         <div className="p-3">
                           <h6 className="color-green">
+                            Subdivision & Housing Model
+                          </h6>
+                          <div className="input-group mt-3">
+                            <div className="input-group-prepend">
+                              <span
+                                className="input-group-text border-0 bg-light text-secondary"
+                                id="basic-addon1"
+                              >
+                                Select Subdivision
+                              </span>
+                            </div>
+
+                            <select className="form-control bg-light border-0">
+                              <option>Subdivision - 1</option>
+                              <option>Subdivision - 1</option>
+                              <option>Subdivision - 1</option>
+                              <option>Subdivision - 1</option>
+                            </select>
+                          </div>
+                          <div className="input-group mt-3">
+                            <div className="input-group-prepend">
+                              <span
+                                className="input-group-text border-0 bg-light text-secondary"
+                                id="basic-addon1"
+                              >
+                                Select housing model
+                              </span>
+                            </div>
+
+                            <select className="form-control bg-light border-0">
+                              <option>Model - A</option>
+                              <option>Model - B</option>
+                              <option>Model - C</option>
+                              <option>Model - D</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="p-3">
+                          <h6 className="color-green">
                             Employment Information
                           </h6>
                           <div className="input-group mt-3">
@@ -918,6 +957,25 @@ function Application() {
                               required
                               ref={paymentSlipImageRef}
                               onChange={uploadPaymentSlipImage}
+                            />
+                          </div>
+
+                          <div className="input-group mt-3">
+                            <div className="input-group-prepend">
+                              <span
+                                className="input-group-text border-0 bg-light text-secondary"
+                                id="basic-addon1"
+                              >
+                                Job Letter
+                              </span>
+                            </div>
+
+                            <input
+                              className="custom-file-upload form-control bg-light border-0"
+                              type="file"
+                              required
+                              // ref={paymentSlipImageRef}
+                              // onChange={uploadPaymentSlipImage}
                             />
                           </div>
 
