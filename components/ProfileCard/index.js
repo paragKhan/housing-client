@@ -1,6 +1,5 @@
 import axios from "apis/axios";
 import { getProfileData, updateProfileData } from "apis/profile";
-import uploader from "apis/uploader";
 import Image from "next/image";
 import React, { createRef, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -13,11 +12,15 @@ export default function ProfileCard() {
   const handleImageUpload = async () => {
     const file = profileImageInput.current.files[0];
 
-    const photo = await uploader(file);
+    const formData = new FormData();
 
-    const res = await updateProfileData({ photo });
+    formData.append("_method", "PUT");
+    formData.append("photo", file);
+
+    const res = await updateProfileData(formData);
+    console.log(res);
     toast.success("Profile image updated");
-    setData({ ...data, photo: res.photo });
+    setData(res);
   };
 
   const handleSendEmailVerification = async () => {
@@ -53,8 +56,8 @@ export default function ProfileCard() {
               <div className="position-relative text-center">
                 <Image
                   src={
-                    data.photo
-                      ? process.env.NEXT_PUBLIC_IMAGE_URL + data.photo
+                    data.media[0]?.original_url
+                      ? data.media[0].original_url
                       : "/img/no-photo.png"
                   }
                   className="rounded-circle"

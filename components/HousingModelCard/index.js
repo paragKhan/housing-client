@@ -4,10 +4,7 @@ import React from "react";
 export default function HousingModelCard({ data = {} }) {
   return (
     <div className="card border-0 card-shadow pb-2" style={{ maxWidth: 300 }}>
-      <img
-        height={200}
-        src={process.env.NEXT_PUBLIC_IMAGE_URL + data.master_plan_photo}
-      />
+      <img height={200} src={data.master_plan.thumb} />
       <div className="mt-3 px-4 color-dark">
         <h6 className="fw-bold">{data.heading}</h6>
         <div className="d-flex justify-content-between ">

@@ -13,8 +13,9 @@ export default function SubdivisionCard({ subdivision }) {
         </span>
       )}
       <img
+        style={{ objectFit: "cover" }}
         height={200}
-        src={process.env.NEXT_PUBLIC_IMAGE_URL + subdivision.photo}
+        src={subdivision.gallery[0].thumb}
       />
       <div className="mt-3 px-4 color-dark">
         <h6 className="fw-bold">{subdivision.heading}</h6>

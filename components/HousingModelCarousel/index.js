@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 
 export default function HousingModelCarousel({ gallery }) {
-  const photos = gallery.split("|");
   return (
     <div
       id="carouselExampleControls"
@@ -10,19 +9,14 @@ export default function HousingModelCarousel({ gallery }) {
       data-bs-ride="carousel"
     >
       <div className="carousel-inner">
-        {photos.map((photo, index) => (
+        {gallery.map((photo, index) => (
           <div
             key={index}
             className={`carousel-item position-relative hero-img-rounded ${
               index == 0 ? "active" : ""
             }`}
           >
-            <Image
-              src={process.env.NEXT_PUBLIC_IMAGE_URL + photo}
-              layout="fill"
-              alt="..."
-              objectFit="cover"
-            />
+            <Image src={photo} layout="fill" alt="..." objectFit="cover" />
           </div>
         ))}
       </div>

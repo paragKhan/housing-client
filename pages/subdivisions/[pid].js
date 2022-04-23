@@ -1,6 +1,7 @@
 import axios from "apis/axios";
 import Footer from "components/Footer";
 import Navbar from "components/Navbar";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Lightbox from "react-awesome-lightbox";
@@ -8,7 +9,7 @@ import "react-awesome-lightbox/build/style.css";
 
 export default function Subdivision() {
   const [subdivision, setSubdivision] = useState({});
-  const [showLightbox, setShowLightbox] = useState(false);
+  const [showLightbox, setShowLightbox] = useState("");
 
   const router = useRouter();
   const { pid } = router.query;
@@ -24,24 +25,61 @@ export default function Subdivision() {
     <>
       <Navbar />
       {showLightbox && (
-        <Lightbox
-          onClose={() => setShowLightbox(false)}
-          image={process.env.NEXT_PUBLIC_IMAGE_URL + subdivision.photo}
-        />
+        <Lightbox onClose={() => setShowLightbox("")} image={showLightbox} />
       )}
       <div className="bg-gradient py-5">
         <h3 className="text-center">Government Subdivision and Lots</h3>
       </div>
 
       <div className="container py-3">
-        <div className="row  px-3">
-          {subdivision.photo && (
-            <img
-              onClick={() => setShowLightbox(true)}
-              className="img-fluid card-shadow"
-              src={process.env.NEXT_PUBLIC_IMAGE_URL + subdivision.photo}
-            />
-          )}
+        <div
+          id="carouselExampleControls"
+          className="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div className="carousel-inner">
+            {subdivision.gallery &&
+              subdivision.gallery.map((image, index) => (
+                <div
+                  key={index}
+                  className={`carousel-item position-relative hero-img-subdivision ${
+                    index == 0 ? "active" : ""
+                  }`}
+                >
+                  <Image
+                    onClick={() => setShowLightbox(image.original)}
+                    src={image.thumb}
+                    layout="fill"
+                    alt="..."
+                    objectFit="contain"
+                  />
+                </div>
+              ))}
+          </div>
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev"
+          >
+            <span
+              className="fas fa-arrow-circle-left fs-2"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="next"
+          >
+            <span
+              className="fas fa-arrow-circle-right fs-2"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Next</span>
+          </button>
         </div>
         <div className="card-shadow mt-3">
           <div className="card-body">

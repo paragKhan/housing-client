@@ -108,6 +108,21 @@ input[type="checkbox"].invalid {
   box-shadow: 0 0 0 2px #dc3545 !important;
 }
 
+.carousel-control-next,
+.carousel-control-prev {
+  color: black;
+}
+
+.carousel-control-next:focus,
+.carousel-control-prev:focus {
+  color: gray;
+}
+
+.carousel-control-next:hover,
+.carousel-control-prev:hover {
+  color: black;
+}
+
 /* custom classes */
 
 .hero-img {
@@ -120,6 +135,14 @@ input[type="checkbox"].invalid {
   height: 500px;
   width: 100%;
   object-fit: cover;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.hero-img-subdivision {
+  height: 700px;
+  width: 100%;
+  object-fit: contain;
   border-radius: 10px;
   overflow: hidden;
 }

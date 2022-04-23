@@ -35,7 +35,7 @@ export default function HousingModel() {
       {showLightbox && (
         <Lightbox
           onClose={() => setShowLightbox(false)}
-          image={process.env.NEXT_PUBLIC_IMAGE_URL + lightboxImage}
+          image={lightboxImage}
         />
       )}
       <div className="bg-gradient py-5">
@@ -144,12 +144,11 @@ export default function HousingModel() {
                           <img
                             onClick={() => {
                               setShowLightbox(true);
-                              setLightboxImage(housingModel.master_plan_photo);
+                              setLightboxImage(
+                                housingModel.master_plan.original
+                              );
                             }}
-                            src={
-                              process.env.NEXT_PUBLIC_IMAGE_URL +
-                              housingModel.master_plan_photo
-                            }
+                            src={housingModel.master_plan.thumb}
                             className="img-fluid"
                           />
                         </div>
@@ -162,12 +161,11 @@ export default function HousingModel() {
                           <img
                             onClick={() => {
                               setShowLightbox(true);
-                              setLightboxImage(housingModel.basic_plan_photo);
+                              setLightboxImage(
+                                housingModel.basic_plan.original
+                              );
                             }}
-                            src={
-                              process.env.NEXT_PUBLIC_IMAGE_URL +
-                              housingModel.basic_plan_photo
-                            }
+                            src={housingModel.basic_plan.thumb}
                             className="img-fluid"
                           />
                         </div>
