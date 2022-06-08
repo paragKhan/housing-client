@@ -1,15 +1,14 @@
+import { ErrorMessage } from "@hookform/error-message";
 import axios from "apis/axios";
 import { getProfileData } from "apis/profile";
-import uploader from "apis/uploader";
 import Footer from "components/Footer";
 import HousingModelCards from "components/HousingModelCards";
 import LearnMore from "components/LearnMore";
 import Navbar from "components/Navbar";
 import ProfileCard from "components/ProfileCard";
-import { errorify } from "helpers";
 import withAuth from "HOC/withAuth";
 import Link from "next/link";
-import React, { createRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -246,104 +245,16 @@ const industries = [
 
 function Application() {
   const [profile, setProfile] = useState(null);
-  const [nibImage, setNibImage] = useState(null);
-  const [passportImage, setPassportImage] = useState(null);
-  const [paymentSlipImage, setPaymentSlipImage] = useState(null);
-  const nibImageRef = createRef();
-  const passportImageRef = createRef();
-  const paymentSlipImageRef = createRef();
+  const [subdivisions, setSubdivisions] = useState([]);
+  const [housingModels, setHousingModels] = useState([]);
   const [canSubmit, setCanSubmit] = useState(null);
   const [deps, setDeps] = useState(0);
   const [submitting, setSubmitting] = useState(false);
-  const [nibUploading, setNibUploading] = useState(false);
-  const [passportUploading, setPassportUploading] = useState(false);
-  const [paymentSlipUploading, setPaymentSlipUploading] = useState(false);
-
-  const uploadNibImage = async () => {
-    const file = nibImageRef.current.files[0];
-
-    if (file) {
-      setNibUploading(true);
-      const toastId = toast.loading("Uploading NIB Photo");
-      try {
-        const photo = await uploader(file);
-        setNibImage(photo);
-        toast.update(toastId, {
-          render: "NIB Photo Uploaded",
-          type: "success",
-          isLoading: false,
-          autoClose: 2000,
-        });
-      } catch (err) {
-        toast.update(toastId, {
-          render: "NIB Photo Upload Failed",
-          type: "error",
-          isLoading: false,
-          autoClose: 2000,
-        });
-      }
-      setNibUploading(false);
-    }
-  };
-
-  const uploadPassportImage = async () => {
-    const file = passportImageRef.current.files[0];
-
-    if (file) {
-      setPassportUploading(true);
-      const toastId = toast.loading("Uploading Passport Photo");
-      try {
-        const photo = await uploader(file);
-        setPassportImage(photo);
-        toast.update(toastId, {
-          render: "Passport Photo Uploaded",
-          type: "success",
-          isLoading: false,
-          autoClose: 2000,
-        });
-      } catch (err) {
-        toast.update(toastId, {
-          render: "Passport Photo Upload Failed",
-          type: "error",
-          isLoading: false,
-          autoClose: 2000,
-        });
-      }
-      setPassportUploading(false);
-    }
-  };
-
-  const uploadPaymentSlipImage = async () => {
-    const file = paymentSlipImageRef.current.files[0];
-
-    if (file) {
-      setPaymentSlipUploading(true);
-      const toastId = toast.loading("Uploading Payment Slip Photo");
-      try {
-        const photo = await uploader(file);
-        setPaymentSlipImage(photo);
-
-        toast.update(toastId, {
-          render: "Payment Slip Photo Uploaded",
-          type: "success",
-          isLoading: false,
-          autoClose: 2000,
-        });
-      } catch (err) {
-        toast.update(toastId, {
-          render: "Payment Slip Photo Upload Failed",
-          type: "error",
-          isLoading: false,
-          autoClose: 2000,
-        });
-      }
-      setPaymentSlipUploading(false);
-    }
-  };
 
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm();
 
@@ -358,18 +269,51 @@ function Application() {
       formData.append(key, data[key]);
     });
 
-    nibImage && formData.append("nib_photo", nibImage);
-    passportImage && formData.append("passport_photo", passportImage);
-    paymentSlipImage && formData.append("payment_slip", paymentSlipImage);
+    if (data.passport_photo.length > 0) {
+      formData.append("passport_photo", data.passport_photo[0]);
+    } else {
+      formData.delete("passport_photo");
+    }
+    formData.append("nib_photo", data.nib_photo[0]);
+    formData.append(
+      "pre_approved_letter_photo",
+      data.pre_approved_letter_photo[0]
+    );
+    formData.append("job_letter_document", data.job_letter_document[0]);
 
     try {
       setSubmitting(true);
       const res = await axios.post("/apply", formData);
       toast.success("Application submitted successfully");
       setDeps(Math.random());
+      setSubmitting(false);
     } catch (err) {
-      errorify(err);
+      setSubmitting(false);
+      toast.error("Check your inputs and try again");
+      errorify(err.response.data.errors);
     }
+  };
+
+  const errorify = (err) => {
+    Object.entries(err).forEach(([key, value]) => {
+      setError(
+        key,
+        { type: "custom", message: value[0] },
+        { shouldFocus: true }
+      );
+    });
+  };
+
+  const showError = (fieldName) => {
+    return (
+      <ErrorMessage
+        errors={errors}
+        name={fieldName}
+        render={({ message }) => (
+          <small className="text-danger">{message}</small>
+        )}
+      />
+    );
   };
 
   useEffect(() => {
@@ -379,6 +323,12 @@ function Application() {
         setProfile(getProfile);
         const canSubmit = await axios.get("/can-submit-application");
         setCanSubmit(canSubmit.data.canSubmit);
+        const subdivisions = await axios.get("/subdivisions/for-application");
+        setSubdivisions(subdivisions.data);
+        const housingModels = await axios.get(
+          "/housing_models/for-application"
+        );
+        setHousingModels(housingModels.data);
       } catch (err) {}
     }
     fetchData();
@@ -404,521 +354,532 @@ function Application() {
                       <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="p-3">
                           <h6 className="color-green">Personal Information</h6>
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                First name
-                              </span>
-                            </div>
+                          <div className="form-group">
+                            <label className="text-muted">First Name</label>
                             <input
-                              {...register("fname", { required: true })}
+                              type="text"
+                              className={`form-control border-0 bg-light ${
+                                errors.fname && "invalid"
+                              }`}
                               defaultValue={profile.fname}
-                              className="form-control bg-light border-0"
-                              type="text"
-                              placeholder="Type here..."
+                              {...register("fname", {
+                                required: "First Name is required!",
+                              })}
                             />
+                            {showError("fname")}
                           </div>
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Last name
-                              </span>
-                            </div>
-
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Last Name</label>
                             <input
-                              {...register("lname", { required: true })}
+                              type="text"
+                              className={`form-control border-0 bg-light ${
+                                errors.lname && "invalid"
+                              }`}
                               defaultValue={profile.lname}
-                              className="form-control bg-light border-0"
-                              type="text"
-                              placeholder="Last name"
+                              {...register("lname", {
+                                required: "Last Name is required!",
+                              })}
                             />
+                            {showError("lname")}
+                          </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">NIB Number</label>
+                            <input
+                              type="text"
+                              className={`form-control border-0 bg-light ${
+                                errors.nib_no && "invalid"
+                              }`}
+                              defaultValue={profile.nib}
+                              {...register("nib_no", {
+                                required: "NIB no. is required!",
+                              })}
+                            />
+                            {showError("nib_no")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                NIB Number
-                              </span>
-                            </div>
-
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Email</label>
                             <input
-                              {...register("nib_no", { required: true })}
-                              defaultValue={profile.nib_no}
-                              className="form-control bg-light border-0"
-                              type="text"
-                              placeholder="Type here..."
-                            />
-                          </div>
-
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Email
-                              </span>
-                            </div>
-
-                            <input
-                              {...register("email", { required: true })}
+                              type="email"
+                              className={`form-control border-0 bg-light ${
+                                errors.email && "invalid"
+                              }`}
                               defaultValue={profile.email}
-                              className="form-control bg-light border-0"
-                              type="text"
-                              placeholder="Email"
+                              {...register("email", {
+                                required: "Email is required!",
+                              })}
                             />
+                            {showError("email")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Date of birth
-                              </span>
-                            </div>
-
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Date of Birth</label>
                             <input
-                              {...register("dob", { required: true })}
-                              defaultValue={profile.dob}
-                              className="form-control bg-light border-0"
                               type="date"
+                              className={`form-control border-0 bg-light ${
+                                errors.dob && "invalid"
+                              }`}
+                              defaultValue={profile.dob}
+                              {...register("dob", {
+                                required: "Date of birth is required!",
+                              })}
                             />
+                            {showError("dob")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Gender
-                              </span>
-                            </div>
-
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Gender</label>
                             <select
-                              {...register("gender", { required: true })}
+                              {...register("gender", {
+                                required: "Gender is required!",
+                              })}
                               defaultValue={profile.gender}
-                              className="form-control bg-light border-0"
+                              className={`form-control border-0 bg-light ${
+                                errors.gender && "invalid"
+                              }`}
                             >
+                              <option value="">Select Gender</option>
                               <option value="male">Male</option>
                               <option value="female">Female</option>
                               <option value="other">Other</option>
                             </select>
+                            {showError("gender")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Country of Birth
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">
+                              Country of Birth
+                            </label>
 
                             <select
                               {...register("country_of_birth", {
-                                required: true,
+                                required: "Country of birth is required!",
                               })}
                               defaultValue={profile.country_of_birth}
-                              className="form-control bg-light border-0"
+                              className={`form-control border-0 bg-light ${
+                                errors.country_of_birth && "invalid"
+                              }`}
                             >
+                              <option value="">Select Country</option>
                               {countries.map((country, index) => (
                                 <option key={index} value={country}>
                                   {country}
                                 </option>
                               ))}
                             </select>
+                            {showError("country_of_birth")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Island of Birth
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">
+                              Island of Birth
+                            </label>
 
                             <select
                               {...register("island_of_birth", {
-                                required: true,
+                                required: "Islan of birth is required!",
                               })}
                               defaultValue={profile.island_of_birth}
-                              className="form-control bg-light border-0"
+                              className={`form-control border-0 bg-light ${
+                                errors.island_of_birth && "invalid"
+                              }`}
                             >
+                              <option value="">Select Island</option>
                               {islands.map((island, index) => (
                                 <option key={index} value={island}>
                                   {island}
                                 </option>
                               ))}
                             </select>
+                            {showError("island_of_birth")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Country of Citizenship
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">
+                              Country of Citizenship
+                            </label>
 
                             <select
                               {...register("country_of_citizenship", {
-                                required: true,
+                                required: "Country of citizenship is required!",
                               })}
                               defaultValue={profile.country_of_citizenship}
-                              className="form-control bg-light border-0"
+                              className={`form-control border-0 bg-light ${
+                                errors.country_of_citizenship && "invalid"
+                              }`}
                             >
+                              <option value="">Select Country</option>
                               {countries.map((country, index) => (
                                 <option key={index} value={country}>
                                   {country}
                                 </option>
                               ))}
                             </select>
+                            {showError("country_of_citizenship")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Phone
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Phone</label>
                             <input
-                              {...register("phone", { required: true })}
+                              {...register("phone", {
+                                required: "Phone is required!",
+                              })}
                               defaultValue={profile.phone}
-                              className="form-control bg-light border-0"
+                              className={`form-control border-0 bg-light ${
+                                errors.phone && "invalid"
+                              }`}
                               type="text"
                               placeholder="Type here..."
                             />
+                            {showError("phone")}
                           </div>
                         </div>
                         <div className="p-3">
                           <h6 className="color-green">Home Address</h6>
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                House No
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">House No.</label>
 
                             <input
-                              {...register("house_no", { required: true })}
-                              className="form-control bg-light border-0"
+                              {...register("house_no", {
+                                required: "House no. is required!",
+                              })}
+                              className={`form-control border-0 bg-light ${
+                                errors.house_no && "invalid"
+                              }`}
                               type="text"
                               placeholder="Type here..."
                             />
+                            {showError("house_no")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Street Address
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Street Address</label>
 
                             <input
                               {...register("street_address", {
-                                required: true,
+                                required: "Street address is required!",
                               })}
-                              className="form-control bg-light border-0"
+                              className={`form-control border-0 bg-light ${
+                                errors.street_address && "invalid"
+                              }`}
                               type="text"
                               placeholder="Type here..."
                             />
+                            {showError("street_address")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                P.O Box
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">P.O Box</label>
 
                             <input
-                              {...register("po_box", { required: true })}
-                              className="form-control bg-light border-0"
+                              {...register("po_box", {
+                                required: "P.O box is required!",
+                              })}
+                              className={`form-control border-0 bg-light ${
+                                errors.po_box && "invalid"
+                              }`}
                               type="text"
                               placeholder="Type here..."
                             />
+                            {showError("po_box")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Island
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Island</label>
 
                             <select
-                              {...register("island", { required: true })}
-                              className="form-control bg-light border-0"
+                              {...register("island", {
+                                required: "Island is required!",
+                              })}
+                              className={`form-control border-0 bg-light ${
+                                errors.island && "invalid"
+                              }`}
                             >
+                              <option value="">Select Island</option>
                               {islands.map((island, index) => (
                                 <option key={index} value={island}>
                                   {island}
                                 </option>
                               ))}
                             </select>
+                            {showError("island")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Country
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Country</label>
 
                             <select
-                              {...register("country", { required: true })}
-                              className="form-control bg-light border-0"
+                              {...register("country", {
+                                required: "Country is required!",
+                              })}
+                              className={`form-control border-0 bg-light ${
+                                errors.country && "invalid"
+                              }`}
                             >
+                              <option value="">Select Country</option>
                               {countries.map((country, index) => (
                                 <option key={index} value={country}>
                                   {country}
                                 </option>
                               ))}
                             </select>
+                            {showError("country")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Home Phone
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Home Phone</label>
 
                             <input
-                              {...register("home_phone", { required: true })}
-                              className="form-control bg-light border-0"
+                              {...register("home_phone", {
+                                required: "Home phone is requried!",
+                              })}
+                              className={`form-control border-0 bg-light ${
+                                errors.home_phone && "invalid"
+                              }`}
                               type="text"
                               placeholder="Type here..."
                             />
+                            {showError("home_phone")}
                           </div>
                         </div>
                         <div className="p-3">
                           <h6 className="color-green">
                             Identification Information
                           </h6>
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Passport No.
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Passport No.</label>
                             <input
                               {...register("passport_no")}
-                              className="form-control bg-light border-0"
+                              className={`form-control border-0 bg-light ${
+                                errors.passport_no && "invalid"
+                              }`}
                               type="text"
                               placeholder="Type here..."
                             />
+                            {showError("passport_no")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Passport Expiration Date
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">
+                              Passport Expiration Date
+                            </label>
                             <input
                               {...register("passport_expiry")}
-                              className="form-control bg-light border-0"
+                              className={`form-control border-0 bg-light ${
+                                errors.passport_expiry && "invalid"
+                              }`}
                               type="date"
                             />
+                            {showError("passport_expiry")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Driving Licence
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">
+                              Driving Licence No.
+                            </label>
 
                             <input
                               {...register("driving_licence_no")}
-                              className="form-control bg-light border-0"
+                              className={`form-control border-0 bg-light ${
+                                errors.driving_licence_no && "invalid"
+                              }`}
                               type="text"
                               placeholder="Type here..."
                             />
+                            {showError("driving_licence_no")}
                           </div>
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                NIB
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">
+                              Upload NIB Photo
+                            </label>
 
                             <input
-                              required
-                              ref={nibImageRef}
-                              onChange={uploadNibImage}
-                              className="custom-file-upload form-control bg-light border-0"
+                              className={`custom-file-upload form-control bg-light border-0 ${
+                                errors.nib_photo && "invalid"
+                              }`}
                               type="file"
+                              {...register("nib_photo", {
+                                required: "NIB photo is required!",
+                              })}
                             />
+                            {showError("nib_photo")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Passport
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">
+                              Upload Passport Photo
+                            </label>
 
                             <input
-                              className="custom-file-upload form-control bg-light border-0"
+                              className={`custom-file-upload form-control bg-light border-0 ${
+                                errors.passport_photo && "invalid"
+                              }`}
                               type="file"
-                              ref={passportImageRef}
-                              onChange={uploadPassportImage}
+                              {...register("passport_photo")}
                             />
+                            {showError("passport_photo")}
+                          </div>
+                        </div>
+                        <div className="p-3">
+                          <h6 className="color-green">
+                            Subdivision & Housing Model
+                          </h6>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Subdivision</label>
+
+                            <select
+                              {...register("subdivision_id", {
+                                required: "Subdivision is required!",
+                              })}
+                              defaultValue=""
+                              className={`form-control bg-light border-0 ${
+                                errors.subdivision_id && "invalid"
+                              }`}
+                            >
+                              <option value="">Select Subdivision</option>
+                              {subdivisions.map((subdivision) => (
+                                <option
+                                  key={subdivision.id}
+                                  value={subdivision.id}
+                                >
+                                  {subdivision.heading}
+                                </option>
+                              ))}
+                            </select>
+                            {showError("subdivision_id")}
+                          </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Housing Model</label>
+
+                            <select
+                              {...register("housing_model_id", {
+                                required: "Housing model is required!",
+                              })}
+                              defaultValue=""
+                              className={`form-control bg-light border-0 ${
+                                errors.housing_model_id && "invalid"
+                              }`}
+                            >
+                              <option value="">Select housing model</option>
+                              {housingModels.map((housingModel) => (
+                                <option
+                                  key={housingModel.id}
+                                  value={housingModel.id}
+                                >
+                                  {housingModel.heading}
+                                </option>
+                              ))}
+                            </select>
+                            {showError("housing_model_id")}
                           </div>
                         </div>
                         <div className="p-3">
                           <h6 className="color-green">
                             Employment Information
                           </h6>
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Employer
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Employer</label>
 
                             <input
-                              {...register("employer", { required: true })}
-                              className="form-control bg-light border-0"
+                              {...register("employer", {
+                                required: "Employer is required!",
+                              })}
+                              className={`form-control bg-light border-0 ${
+                                errors.employer && "invalid"
+                              }`}
                               type="text"
                               placeholder="Type here..."
                             />
+                            {showError("employer")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Industry
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Industry</label>
 
                             <select
-                              {...register("industry", { required: true })}
+                              {...register("industry", {
+                                required: "Industry is required!",
+                              })}
                               defaultValue={profile.industry}
-                              className="form-control bg-light border-0"
+                              className={`form-control bg-light border-0 ${
+                                errors.industry && "invalid"
+                              }`}
                             >
+                              <option value="">Select Industry</option>
                               {industries.map((industry, index) => (
                                 <option key={index} value={industry}>
                                   {industry}
                                 </option>
                               ))}
                             </select>
+                            {showError("industry")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Position
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Position</label>
 
                             <input
-                              {...register("position", { required: true })}
-                              className="form-control bg-light border-0"
+                              {...register("position", {
+                                required: "Position is required!",
+                              })}
+                              className={`form-control bg-light border-0 ${
+                                errors.position && "invalid"
+                              }`}
                               type="text"
                               placeholder="Type here..."
                             />
+                            {showError("position")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Work Phone
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">Work Phone</label>
 
                             <input
-                              {...register("work_phone", { required: true })}
-                              className="form-control bg-light border-0"
+                              {...register("work_phone", {
+                                required: "Work phone is required!",
+                              })}
+                              className={`form-control bg-light border-0 ${
+                                errors.work_phone && "invalid"
+                              }`}
                               type="text"
                               placeholder="Type here..."
                             />
+                            {showError("work_phone")}
                           </div>
 
-                          <div className="input-group mt-3">
-                            <div className="input-group-prepend">
-                              <span
-                                className="input-group-text border-0 bg-light text-secondary"
-                                id="basic-addon1"
-                              >
-                                Pre-Approved Letter
-                              </span>
-                            </div>
+                          <div className="form-group mt-3">
+                            <label className="text-muted">
+                              Upload Pre-Approved Letter
+                            </label>
 
                             <input
-                              className="custom-file-upload form-control bg-light border-0"
+                              className={`custom-file-upload form-control bg-light border-0 ${
+                                errors.pre_approved_letter_photo && "invalid"
+                              }`}
                               type="file"
-                              required
-                              ref={paymentSlipImageRef}
-                              onChange={uploadPaymentSlipImage}
+                              {...register("pre_approved_letter_photo", {
+                                required:
+                                  "Pre-approved letter photo is required!",
+                              })}
                             />
+                            {showError("pre_approved_letter_photo")}
+                          </div>
+
+                          <div className="form-group mt-3">
+                            <label className="text-muted">
+                              Upload Job Letter Document
+                            </label>
+
+                            <input
+                              className={`custom-file-upload form-control bg-light border-0 ${
+                                errors.job_letter_document && "invalid"
+                              }`}
+                              type="file"
+                              {...register("job_letter_document", {
+                                required: "Job letter document is required!",
+                              })}
+                            />
+                            {showError("job_letter_document")}
                           </div>
 
                           <div className="d-flex mt-3">
@@ -939,15 +900,10 @@ function Application() {
                         </div>
                         <div className="text-center">
                           <input
-                            disabled={
-                              submitting ||
-                              nibUploading ||
-                              passportUploading ||
-                              paymentSlipUploading
-                            }
+                            disabled={submitting}
                             className="btn btn-green"
                             type="submit"
-                            value="Apply Now"
+                            value={submitting ? "Submitting..." : "Submit"}
                           />
                         </div>
                       </form>

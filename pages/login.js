@@ -54,7 +54,7 @@ export default function Login() {
                 <input
                   {...register("email", { required: true })}
                   className={`form-control ${
-                    errors.email ? "invalid" : ""
+                    errors.email && "invalid"
                   } mb-3 bg-light border-0 color-dark`}
                   placeholder="Email address"
                   type="email"
@@ -65,7 +65,7 @@ export default function Login() {
                 <input
                   {...register("password", { required: true })}
                   className={`form-control ${
-                    errors.password ? "invalid" : ""
+                    errors.password && "invalid"
                   } mb-3 bg-light border-0 color-dark`}
                   placeholder="Password"
                   type="password"

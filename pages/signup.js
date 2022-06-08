@@ -130,6 +130,17 @@ export default function Signup() {
                     <p className="small text-danger">{errors.phone.message}</p>
                   )}
                   <input
+                    {...register("nib")}
+                    className={`form-control ${
+                      errors.nib ? "invalid" : ""
+                    } mb-3 bg-light border-0 color-dark`}
+                    placeholder="NIB Number"
+                    type="text"
+                  />
+                  {errors.nib && (
+                    <p className="small text-danger">{errors.nib.message}</p>
+                  )}
+                  <input
                     {...register("password", { required: true })}
                     className={`form-control ${
                       errors.password ? "invalid" : ""

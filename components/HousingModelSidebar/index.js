@@ -1,6 +1,7 @@
 import axios from "apis/axios";
 import Link from "next/link";
 import React, { useState } from "react";
+import Skeleton from "react-loading-skeleton";
 
 export default function HousingModelSidebar() {
   const [housingModels, setHousingModels] = useState(null);
@@ -11,7 +12,7 @@ export default function HousingModelSidebar() {
     });
   }, []);
 
-  return (
+  return housingModels ? (
     <div className="card card-shadow">
       <div className="card-header bg-green text-center">
         <h6 className="text-white">Housing Models</h6>
@@ -36,6 +37,17 @@ export default function HousingModelSidebar() {
               </a>
             </Link>
           ))}
+      </div>
+    </div>
+  ) : (
+    <div className="card card-shadow">
+      <div className="card-header bg-green text-center">
+        <h6 className="text-white">Housing Models</h6>
+      </div>
+      <div className="card-body">
+        {Array.from(Array(7)).map((_, index) => (
+          <Skeleton className="mb-3" key={index} />
+        ))}
       </div>
     </div>
   );

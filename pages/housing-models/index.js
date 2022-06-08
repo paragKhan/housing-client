@@ -30,6 +30,7 @@ export default function HousingModels() {
   };
 
   useEffect(() => {
+    setHousingModels(null);
     axios
       .get(
         `/housing_models?page=${current_page}&location=${current_location}&&bedrooms=${current_bedrooms}&bathrooms=${current_bathrooms}`
@@ -130,15 +131,23 @@ export default function HousingModels() {
           </div>
 
           <div className="row mt-5">
-            {housingModels &&
-              housingModels.map((housingModel) => (
-                <div
-                  key={housingModel.id}
-                  className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block"
-                >
-                  <HousingModelCard data={housingModel} />
-                </div>
-              ))}
+            {housingModels
+              ? housingModels.map((housingModel) => (
+                  <div
+                    key={housingModel.id}
+                    className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block"
+                  >
+                    <HousingModelCard data={housingModel} />
+                  </div>
+                ))
+              : Array.from(Array(12)).map((housingModel, index) => (
+                  <div
+                    key={index}
+                    className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block"
+                  >
+                    <HousingModelCard data={housingModel} />
+                  </div>
+                ))}
           </div>
           <div className="d-flex justify-content-center pb-3">
             {data && data.prev_page_url && (

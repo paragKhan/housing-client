@@ -13,12 +13,17 @@ export default function HousingModelCards({ count }) {
 
   return (
     <div>
-      {housingModels &&
-        housingModels.map((housingModel, index) => (
-          <div className="mb-3" key={index}>
-            <HousingModelCard key={index} data={housingModel} />
-          </div>
-        ))}
+      {housingModels
+        ? housingModels.map((housingModel, index) => (
+            <div className="mb-3" key={index}>
+              <HousingModelCard key={index} data={housingModel} />
+            </div>
+          ))
+        : Array.from(Array(count)).map((_, index) => (
+            <div className="mb-3" key={index}>
+              <HousingModelCard key={index} data={null} />
+            </div>
+          ))}
     </div>
   );
 }
