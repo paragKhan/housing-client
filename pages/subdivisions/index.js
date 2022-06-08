@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 export default function Subdivisions() {
-  const [subdivisions, setSubdivisions] = useState([]);
+  const [subdivisions, setSubdivisions] = useState(null);
   const [data, setData] = useState(null);
   const [locations, setLocations] = useState([]);
   const [searchLocation, setSearchLocation] = useState("");
@@ -26,6 +26,7 @@ export default function Subdivisions() {
   };
 
   useEffect(() => {
+    setSubdivisions(null);
     axios
       .get(
         `/subdivisions?page=${current_page}&location=${current_location}&category=${current_category}`
@@ -89,14 +90,33 @@ export default function Subdivisions() {
           </div>
 
           <div className="row mt-5">
-            {subdivisions.map((subdivision) => (
-              <div
-                key={subdivision.id}
-                className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block"
-              >
-                <SubdivisionCard subdivision={subdivision} />
-              </div>
-            ))}
+            {subdivisions ? (
+              subdivisions.length == 0 ? (
+                <div className="col text-center">
+                  <h3 className="text-muted my-5 py-5">
+                    No Subdivisions Found
+                  </h3>
+                </div>
+              ) : (
+                subdivisions.map((subdivision) => (
+                  <div
+                    key={subdivision.id}
+                    className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block"
+                  >
+                    <SubdivisionCard subdivision={subdivision} />
+                  </div>
+                ))
+              )
+            ) : (
+              Array.from(Array(12)).map((subdivision, index) => (
+                <div
+                  key={index}
+                  className="col-12 col-md-6 col-xl-4 p-5 d-flex justify-content-center d-md-block"
+                >
+                  <SubdivisionCard subdivision={subdivision} />
+                </div>
+              ))
+            )}
           </div>
           <div className="d-flex justify-content-center pb-3">
             {data && data.prev_page_url && (

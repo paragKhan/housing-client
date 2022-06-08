@@ -1,8 +1,9 @@
 import Image from "next/image";
 import React from "react";
+import Skeleton from "react-loading-skeleton";
 
 export default function HousingModelCarousel({ gallery }) {
-  return (
+  return gallery ? (
     <div
       id="carouselExampleControls"
       className="carousel slide"
@@ -45,5 +46,7 @@ export default function HousingModelCarousel({ gallery }) {
         <span className="visually-hidden">Next</span>
       </button>
     </div>
+  ) : (
+    <Skeleton height={500} />
   );
 }

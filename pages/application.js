@@ -383,7 +383,7 @@ function Application() {
                             {showError("lname")}
                           </div>
                           <div className="form-group mt-3">
-                            <label className="text-muted">NIB NO.</label>
+                            <label className="text-muted">NIB Number</label>
                             <input
                               type="text"
                               className={`form-control border-0 bg-light ${
@@ -849,7 +849,7 @@ function Application() {
 
                           <div className="form-group mt-3">
                             <label className="text-muted">
-                              Upload Pre-Approved Letter Photo
+                              Upload Pre-Approved Letter
                             </label>
 
                             <input

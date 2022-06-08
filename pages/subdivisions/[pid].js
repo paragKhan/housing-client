@@ -6,9 +6,10 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Lightbox from "react-awesome-lightbox";
 import "react-awesome-lightbox/build/style.css";
+import Skeleton from "react-loading-skeleton";
 
 export default function Subdivision() {
-  const [subdivision, setSubdivision] = useState({});
+  const [subdivision, setSubdivision] = useState(null);
   const [showLightbox, setShowLightbox] = useState("");
 
   const router = useRouter();
@@ -38,7 +39,7 @@ export default function Subdivision() {
           data-bs-ride="carousel"
         >
           <div className="carousel-inner">
-            {subdivision.gallery &&
+            {subdivision?.gallery ? (
               subdivision.gallery.map((image, index) => (
                 <div
                   key={index}
@@ -54,7 +55,10 @@ export default function Subdivision() {
                     objectFit="contain"
                   />
                 </div>
-              ))}
+              ))
+            ) : (
+              <Skeleton height={700} />
+            )}
           </div>
           <button
             className="carousel-control-prev"
@@ -83,14 +87,26 @@ export default function Subdivision() {
         </div>
         <div className="card-shadow mt-3">
           <div className="card-body">
-            <h5 className="color-dark">{subdivision.heading}</h5>
-            <div>
-              <i className="color-green fas fa-map-marker-alt me-2 " />
-              <span className="color-green fw-bold">Location:</span>
-              <span className="color-green ms-2">{subdivision.location}</span>
-            </div>
+            <h5 className="color-dark">
+              {subdivision?.heading || <Skeleton width="50%" />}
+            </h5>
+            {subdivision?.location ? (
+              <div>
+                <i className="color-green fas fa-map-marker-alt me-2 " />
+                <span className="color-green fw-bold">Location:</span>
+                <span className="color-green ms-2">
+                  {subdivision?.location}
+                </span>
+              </div>
+            ) : (
+              <Skeleton inline={true} />
+            )}
             <h6 className="mt-3 color-dark">Description</h6>
-            <p className="small color-dark">{subdivision.description}</p>
+            <p className="small color-dark">
+              {subdivision?.description || (
+                <Skeleton className="mb-2" count={5} />
+              )}
+            </p>
           </div>
         </div>
       </div>

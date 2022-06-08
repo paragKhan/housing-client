@@ -41,6 +41,11 @@ input[type="checkbox"].invalid {
   filter: hue-rotate(15deg);
 }
 
+/* overriding react-loading-skeleton */
+.react-loading-skeleton {
+  line-height: unset !important;
+}
+
 /* overriding bootstrap */
 .navbar {
   background: #fff !important;

@@ -2,6 +2,8 @@ import Maintenance from "components/Maintenance";
 import Head from "next/head";
 import Script from "next/script";
 import AuthProvider from "providers/AuthProvider";
+import { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "styles/globals.css";
@@ -27,7 +29,9 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <AuthProvider>
         <ToastContainer autoClose={2000} />
-        <Component {...pageProps} />
+        <SkeletonTheme baseColor="#cacaca" highlightColor="#ededed">
+          <Component {...pageProps} />
+        </SkeletonTheme>
       </AuthProvider>
       <Script
         id="bootstrap-bundle"

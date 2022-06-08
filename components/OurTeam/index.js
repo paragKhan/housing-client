@@ -11,9 +11,9 @@ export default function OurTeam() {
       phone: "",
     },
     {
-      name: "Gaynell Rolle, MBA",
+      name: "Gaynell Rolle MBA, CRMA",
       designation: "Under Secretary",
-      photo: "/img/team/2.png",
+      photo: "/img/team/2.jpeg",
       email: "gaynellrolle@bahamas.gov.bs",
       phone: "",
     },
@@ -28,7 +28,7 @@ export default function OurTeam() {
     {
       name: "Mr. Thomas Ferguson",
       designation: "Acting Director of Housing",
-      photo: "/img/team/4.jpeg",
+      photo: "/img/team/4.jpg",
       email: "thomasferguson@bahamas.gov.bs",
       phone: "",
     },
